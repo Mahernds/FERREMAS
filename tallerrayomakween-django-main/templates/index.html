@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+
+</head>
+<body>
+  {# insertamos el navbar #}
+  {% include "navbar.html" %}
+
+  <main>
+    <!-- Mensaje de bienvenida -->
+
+    <div class="container pt-3">
+      <div class="row justify-content-center align-items-center g-2">
+        <div class="col-12">
+          <h1>¡El Taller Mecánico Más Veloz!</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-baseline g-2">
+        <div class="ct col-12 col-sm-6">
+          <h2>Rapidez</h2>
+          <p>
+            Tu tiempo vale oro. Nuestros expertos mecánicos brindan un
+            servicio rápido y eficiente. ¡Vas a volver a la carretera muy
+            pronto!
+          </p>
+        </div>
+        <div class="col-12 col-sm-6">
+          <h2>Profesionales 24/7</h2>
+          <p>
+            Nos onorgullese decir que somos un equipo profesional, capacitado
+            y con experiencia. Cuidamos tu vehículo con atención. Calidad
+            superior. ¡Tu auto en buenas manos!
+          </p>
+        </div>
+        <div class="col-12 col-sm-12">
+          <h2>¿Barato?</h2>
+          <p>
+            Tenemos precios muy competitivos. Transparencia en la factura, sin
+            engaños!. Siempre intentamos ofrecer el mejor servicio sin afectar
+            tu presupuesto.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- seccion ultimos trabajos -->
+    <div class="container">
+      <div class="row justify-content-center align-items-center g-2">
+        <div class="col">
+          <h1>Nuestros últimos trabajos</h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- carrusel con trabajos recientes -->
+    <div class="container-carrusel d-flex justify-content-center mt-3">
+      <div class="container d-flex justify-content-center">
+        <div class="row d-flex justify-content-center align-items-center g-2">
+          <div class="col c-container mt-0 d-flex justify-content-center">
+            <div id="carouselLandingPage" class="carousel slide d-flex justify-content-center">
+              <div class="carousel-indicators mb-0 mx-auto">
+                <button type="button" data-bs-target="#carouselLandingPage" data-bs-slide-to="0" class="active"
+                  aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselLandingPage" data-bs-slide-to="1"
+                  aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselLandingPage" data-bs-slide-to="2"
+                  aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner rounded-2">
+                  	<div class="carousel-item active">
+                    <a href="{% url "ver-trabajo" ultimo_trabajo.id %}">
+                    <img src="{{ ultimo_trabajo.foto_principal.url }}" class="d-block w-100" alt="..." />
+                  </a>
+                  <div class="carousel-caption">
+                    <div class="job-title">
+                      <h5>{{ ultimo_trabajo.titulo }}</h5>
+                    </div>
+                  </div>
+                </div>
+
+                  {% for trabajo in sig_trabajos %}
+                  	<div class="carousel-item">
+                    <a href="{% url "ver-trabajo" trabajo.id %}">
+                    <img src="{{ trabajo.foto_principal.url }}" class="d-block w-100" alt="..." />
+                  </a>
+                  <div class="carousel-caption">
+                    <div class="job-title">
+                      <h5>{{ trabajo.titulo }}</h5>
+                    </div>
+                  </div>
+                </div>
+                  {% endfor %}
+
+
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselLandingPage"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselLandingPage"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nuestras marcas -->
+    <div class="container mt-2">
+      <h1>Nuestras marcas</h1>
+      <div class="row justify-content-center align-items-center mx-auto">
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/icons8-toyota (1).svg" %}" alt="Toyota" />
+          <p>Toyota</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto"
+               src="{% static "img/logos-marcas/chevrolet (2).svg" %}"
+               alt="Chevrolet" />
+          <p>Chevrolet</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto"
+               src="{% static "img/logos-marcas/kia.svg" %}"
+               alt="Kia" />
+          <p>Kia</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto"
+               src="{% static "img/logos-marcas/nissan-6.svg" %}"
+               alt="Nissan" />
+          <p>Nissan</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto"
+               src="{% static "img/logos-marcas/ford-8.svg" %}"
+               alt="Ford" />
+          <p>Ford</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/hyundai-motor-company.svg" %}" alt="Hyundai" />
+          <p>Hyundai</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/bmw-8.svg" %}" alt="BMW" />
+          <p>BMW</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/peugeot.svg" %}" alt="Peugeot" />
+          <p>Peugeot</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/suzuki-logotipo.svg" %}" alt="Suzuki" />
+          <p>Suzuki</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/mg.svg" %}" alt="MG" />
+          <p>MG</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/chery-3.svg" %}" alt="Chery" />
+          <p>Chery</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/mazda-2.svg" %}" alt="Mazda" />
+          <p>Mazda</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/jac-seeklogo-5.svg" %}" alt="JAC" />
+          <p>JAC</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/volkswagen.svg" %}" alt="Volkswagen" />
+          <p>Volkswagen</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/logo-citroen-2022.svg" %}" alt="Citroen" />
+          <p>Citroen</p>
+        </div>
+        <div class="caja-marca col-4 col-sm-3">
+          <img class="logo-marca-auto" src="{% static "img/logos-marcas/mitsubishi-motors-new-logo.svg" %}"
+            alt="Mitsubishi" />
+          <p>Mitsubishi</p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <!-- servicios -->
+    <div>
+      <div class="container">
+        <div class="row justify-content-center align-items-center">
+          <div class="col">
+            <h1>Servicios al llegar</h1>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center m-1 g-1">
+          <!-- card servicio -->
+          <div class="col-6 col-sm-4 p-0">
+            <div class="card servicio-card">
+              <img src="{% static "img/servicios/cambio-rueda.png" %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Cambio de aceite y filtro</h5>
+                <hr />
+                <p class="card-text">
+                  Mantenimiento regular del motor con cambio de aceite y
+                  filtro utilizando productos de calidad
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 p-0">
+            <div class="card servicio-card">
+              <img src="{% static "img/servicios/cambio-rueda.png" %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Cambio de aceite y filtro</h5>
+                <hr />
+                <p class="card-text">
+                  Mantenimiento regular del motor con cambio de aceite y
+                  filtro utilizando productos de calidad
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 p-0">
+            <div class="card servicio-card">
+              <img src="{% static "img/servicios/cambio-rueda.png" %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Cambio de aceite y filtro</h5>
+                <hr />
+                <p class="card-text">
+                  Mantenimiento regular del motor con cambio de aceite y
+                  filtro utilizando productos de calidad
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <!-- encuentranos -->
+    <div>
+      <div class="container mt-2">
+        <div class="row justify-content-center align-items-center mx-auto">
+          <div class="col-12 col-sm-6">
+            <h1>Visitanos!</h1>
+            <div class="estado-taller">
+              <p class="mensaje-atencion"></p>
+              <div class="reloj">
+                <p>Hora Actual</p>
+                <p class="hora-actual"></p>
+              </div>
+              <div class="div-apertura">
+                <p class="mensaje-apertura"></p>
+                <p class="icono-apertura"></p>
+              </div>
+            </div>
+            <h2>Estamos ubicados en Duoc Vina</h2>
+            <p>Álvarez 2336, Viña del Mar, Chile</p>
+            <h2>Horario:</h2>
+            <p>Lunes a Viernes 8:00am - 6:00pm</p>
+            <p>Sabado 9:00am - 2:00pm</p>
+          </div>
+          <div class="col-12 col-sm-6">
+            <h1>
+              <div style="
+                    text-decoration: none;
+                    overflow: hidden;
+                    max-width: 100%;
+                    width: 500px;
+                    height: 500px;
+                  ">
+                <div id="embed-ded-map-canvas" style="height: 100%; width: 100%; max-width: 100%">
+                  <iframe style="height: 100%; width: 100%; border: 0" frameborder="0"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53513.23786019665!2d-71.54222208172544!3d-33.04126337779678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689de64d74fd4af%3A0x8004f381e9055a38!2sDuoc%20UC%3A%20Sede%20Vi%C3%B1a%20Del%20Mar!5e0!3m2!1ses!2scl!4v1714705707320!5m2!1ses!2scl"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                    ></iframe>
+                </div>
+              </div>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- contacto -->
+    <!-- formulario -->
+    <div class="contacto-formulario">
+      <div class="container">
+        <h1>¿Dudas? ¡Escribenos!</h1>
+        <p>
+          Usa el siguiente formulario para contactarte con nosotros. Nos
+          demoramos menos de 1 hora en contestar durante nuestras horas de
+          oficina. Tambien puedes llamarnos al +56 9 XXXX XXXX
+        </p>
+
+        <div class="row justify-content-center align-items-center g-2">
+          <div class="col">
+            <form class="needs-validation">
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label for="inputNombreContacto">Nombre</label>
+                  <input type="text" class="form-control" id="inputNombreContacto" placeholder="Nombre" required />
+                  <div class="invalid-feedback">Ingrese su nombre</div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputCorreoContacto">Correo</label>
+                  <input type="email" class="form-control" id="inputCorreoContacto" placeholder="Correo" required />
+                  <div class="invalid-feedback">Ingrese un correo valido</div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputFonoContacto">Fono</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend3">+569 </span>
+                    <input type="tel" class="form-control" id="inputFonoContacto" placeholder="..." required />
+                    <div class="invalid-feedback">
+                      Ingrese un numero de telefono valido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group text-box">
+                <label for="inputTextoContacto" class="form-label">Mensaje</label>
+                <textarea class="form-control" id="inputTextoContacto" rows="4" required></textarea>
+                <div class="invalid-feedback">Ingrese su mensaje</div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-2">
+                Enviar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include 'footer.html' %}
+
+  <!-- boton scroll-up -->
+  <div id="scrollBtn" title="Go to top">
+    <img src="{% static "img/arrow-up.svg" %}" alt="Up">
+  </div>
+  
+
+  <!-- los script los cargamos al final -->
+  <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+
+  <!-- contador del carrito -->
+  <script src="../scripts/contadorCarrito.js"></script>
+  <!-- reloj y calculo de apertura del taller -->
+  <script src="{% static "scripts/estadoLocal.js" %}"></script>
+  <!-- boton para subir al principio pagina -->
+  <script src="{% static "scripts/scrollBtn.js" %}"></script>
+  <!-- nav collapse al apretar en la pagina -->
+  <!-- validacion del formulario -->
+  <script src="{% static "scripts/validacionFormDudas.js" %}"></script>
+
+<!-- init de popover -->
+  <script>
+    const popoverTriggerList = document.querySelectorAll(
+      '[data-bs-toggle="popover"]'
+    );
+    const popoverList = [...popoverTriggerList].map(
+      (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+    );
+  </script>
+</body>
+</html>

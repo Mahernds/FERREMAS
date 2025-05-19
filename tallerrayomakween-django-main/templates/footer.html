@@ -1,0 +1,54 @@
+{% load static %}
+<footer>
+    <div class="container pt-2">
+      <div class="row justify-content-center align-items-center p-2">
+        <div class="logo-footer col-12 col-sm-6 d-flex justify-content-center mt-3 mb-1">
+          <img src="{% static "img/logos empresa/logo-blanco.svg" %}" alt="logo empresa" />
+        </div>
+        <div class="datos-contacto col-12 col-sm-6">
+          <p>Álvarez 2336, Viña del Mar, Chile</p>
+          <p>taller.rayo.mackeen@gmail.com</p>
+          <p>+56 9 XXXX XXXX</p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center align-items-center mt-3">
+        <div class="col-12 col-sm-6 d-flex justify-content-center">
+          <div class="container"></div>
+        </div>
+        <div class="logos-redes col-12 col-sm-6 d-block">
+          <div class="logos-redes d-flex justify-content-center">
+            <img src="{% static "img/logos redes sociales/facebook (1).svg" %}" alt="imagen y link a Facebook" />
+            <img src="{% static "img/logos redes sociales/instagram (1).svg" %}" alt="imagen y link a Instagram" />
+            <img src="{% static "img/logos redes sociales/linkedin (1).svg" %}" alt="imagen y link a Linkedin" />
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center g-2">
+        <div class="cp col">
+          <p><i>© 2024 Equipo 5</i></p>
+        </div>
+        <div class="click-qr cp col">
+          <a data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <p>Click aqui para codigo QR</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+ <!-- Modal de codigo QR -->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Ok!"></button>
+        </div>
+        <div class="modal-body">
+          <!-- contenido del Modal -->
+          <img class="codigoqr" src="{% static "img/qr-code.png" %}" alt="imagen del codigo QR" />
+        </div>
+      </div>
+    </div>
+  </div>

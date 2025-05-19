@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taller Rayo Makween</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
+  </head>
+
+  <body>
+  {# insertamos el navbar #}
+  {% include "navbar.html" %}
+  
+    <main>
+      <!-- quienes somos -->
+      <div>
+        <div class="container">
+          <div class="row justify-content-center align-items-center mx-auto">
+            <div class="col">
+              <h1>Quienes somos</h1>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-center mx-auto">
+            <div class="col-12 col-md-6">
+              <p>
+                "En Taller Rayo Makween, somos un equipo apasionado de
+                profesionales dedicados a brindar servicios mecánicos confiables
+                y de calidad. Con más de [X] años de experiencia en la industria
+                automotriz, nos enorgullece ser un referente en nuestra
+                comunidad".
+              </p>
+            </div>
+            <div class="col-12 col-md-6 justify-content-center d-flex">
+              <img class="imagen-taller"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrpZNQNdm98jpkdYfqCEG9ejOhbXA33GECkA&usqp=CAU"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- nuestro equipo -->
+      <div>
+        <div class="container">
+          <div class="row justify-content-center align-items-center mx-auto">
+            <div class="col">
+              <h1>Conoce a nuestro equipo</h1>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-center mx-auto">
+            <div class="col justify-content-center d-flex">
+              <div class="card" style="width: 18rem">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQRK-gRXcdAl-xh1VOChv1ZTcE-opq2gq9BXwKY_eX000Uke-zLMsP9KrRlvo4pATH05E&usqp=CAU"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Juan</h5>
+                  <p class="card-text">Especialidad: Mecánica General</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col justify-content-center d-flex">
+              <div class="card" style="width: 18rem">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQRK-gRXcdAl-xh1VOChv1ZTcE-opq2gq9BXwKY_eX000Uke-zLMsP9KrRlvo4pATH05E&usqp=CAU"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Diego</h5>
+                  <p class="card-text">
+                    Especialidad: Sistema de Frenos y Suspensión
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col justify-content-center d-flex">
+              <div class="card" style="width: 18rem">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQRK-gRXcdAl-xh1VOChv1ZTcE-opq2gq9BXwKY_eX000Uke-zLMsP9KrRlvo4pATH05E&usqp=CAU"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Francisco</h5>
+                  <p class="card-text">Especialidad: Diagnóstico Electrónico</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col justify-content-center d-flex">
+              <div class="card" style="width: 18rem">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQRK-gRXcdAl-xh1VOChv1ZTcE-opq2gq9BXwKY_eX000Uke-zLMsP9KrRlvo4pATH05E&usqp=CAU"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Sebastian</h5>
+                  <p class="card-text">Especialidad: Motor y Transmisión</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- trabaja con nosotros -->
+      <div>
+        <div class="container">
+          <div class="row justify-content-center align-items-center g-2">
+            <div class="col">
+              <h1>Quieres trabajar con nosotros?</h1>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-baseline g-2">
+            <div class="col-12 col-sm-6">
+              <h2>Estamos buscando</h2>
+              <p class="mensaje-trabajo">
+                "En un taller mecánico, cada día es una oportunidad para
+                desafiar tus habilidades, superar obstáculos y dejar tu huella
+                en cada motor que reparas. Cada tornillo ajustado, cada pieza
+                reemplazada es un paso hacia la excelencia y la satisfacción de
+                un trabajo bien hecho. ¡Que este mensaje te inspire y motive a
+                dar lo mejor de ti en el taller mecánico cada día!
+              </p>
+
+              <ul>
+                <li>Mecanico 5+ años experiencia</li>
+                <li>Especialista en motor 5+ ños experiencia</li>
+                <li>Ayudante 1+ años experiencia</li>
+              </ul>
+            </div>
+
+            <div class="col-12 col-sm-6">
+
+              <div class="container">
+                  <form class="form-trabaja-con-nosotros" autocomplete="off">
+                  <div class="row">
+
+                    <div class="mb-3 col-sm-6">
+                      <label for="rutInput" class="form-label">Rut</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="rutInput"
+                        aria-describedby="rutHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese un rut valido. Ejemplo: 12345678-9
+                      </div>
+                    </div>
+
+                    <div class="mb-3 col-sm-6">
+                      <label for="nombreInput" class="form-label">Nombre</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombreInput"
+                        aria-describedby="nombreHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese un nombre valido. Entre 3 a 20 caracteres
+                      </div>
+                    </div>
+
+                    <div class="mb-3 col-12 col-sm-6">
+                      <label for="apellidoPaternoInput" class="form-label"
+                        >Apellido Paterno</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apellidoPaternoInput"
+                        aria-describedby="apellidoPaternoHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese un apellido valido. Entre 3 a 20 caracteres
+                      </div>
+                    </div>
+
+                    <div class="mb-3 col-12 col-sm-6">
+                      <label for="apellidoMaternoInput" class="form-label"
+                        >Apellido Materno</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apellidoMaternoInput"
+                        aria-describedby="apellidoMaternoHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese un apellido valido. Entre 3 a 20 caracteres
+                      </div>
+                    </div>
+
+                    <div class="mb-3 col-12 col-sm-6">
+                      <label for="edadInput" class="form-label">Edad</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edadInput"
+                        aria-describedby="edadHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese una edad valida. Entre 18 a 35 annos
+                      </div>
+                    </div>
+
+                    <div class="mb-3 col-12 col-sm-6">
+                      <label class="form-label" for="generoInput">Genero</label>
+                      <select class="form-select" id="generoInput">
+                        <option selected>Elegir...</option>
+                        <option value="1">Hombre</option>
+                        <option value="2">Mujer</option>
+                        <option value="3">Otro</option>
+                      </select>
+                      <div class="invalid-feedback">seleccione una opcion</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="celularInput" class="form-label"
+                        >Celular</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="celularInput"
+                        aria-describedby="edadHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese 8 numeros para completar su celular
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="emailInput" class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="emailInput"
+                        aria-describedby="emailHelp"
+                      />
+                      <div class="invalid-feedback">
+                        ingrese un formato valido. xxx@xxx.xxx
+                      </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <label for="textAreaInput"
+                        >Escribe sobre tu experiencia</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="textAreaInput"
+                        rows="3"
+                      ></textarea>
+                      <div class="invalid-feedback">
+                        debe ingresar un mensaje
+                      </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary mb-3">
+                      Enviar
+                    </button>
+                  </div>
+                  </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- los script los cargamos al final -->
+    <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "scripts/validacionFormNosotros.js" %}"></script>
+
+    <!-- nav collapse al apretar en la pagina -->
+    {# <script src="../scripts/navCollapse.js"></script> #}
+    <!-- contador del carrito -->
+    {% comment %}<script src="../scripts/contadorCarrito.js"></script>{% endcomment %}
+    <!-- init de popover -->
+    <script>
+      const popoverTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="popover"]'
+      );
+      const popoverList = [...popoverTriggerList].map(
+        (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taller Rayo Makween</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+      <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/navbar-admin.css' %}">
+      <link rel="stylesheet" href="{% static 'css/admin-mecanico.css' %}">
+  </head>
+
+  <body>
+  {# insertamos el navbar #}
+  {% include "navbar-admin.html" %}
+
+    <main>
+
+        <div class="container">
+            <h1>Mecanico del Taller</h1>
+            <a href="{% url "admin-mecanico-nuevotrabajo" %}">
+            <button class="btn btn-primary">
+                Crear Nuevo Trabajo
+            </button>
+            </a>
+
+
+
+        </div>
+        <br>
+        <div class="container">
+
+            <div class="row">
+                <h2>Trabajos Pendientes de Revision</h2>
+                <table class="tabla-pulenta">
+                <tr>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Titulo</th>
+                    <th>Auto</th>
+                    <th>Diagnostico</th>
+                    <th>Accion</th>
+                </tr>
+
+                {% for trabajo in trabajos %}
+                    {% if trabajo.revision == "Por revisar" %}
+                    	<tr>
+                            <td>Pendiente</td>
+                            <td>{{ trabajo.fecha_trabajo }}</td>
+                            <td>{{ trabajo.titulo }}</td>
+                            <td>{{ trabajo.auto }}</td>
+                            <td>{{ trabajo.diagnostico }}</td>
+                        <td>
+                            <a href="{% url "admin-mecanico-vertrabajo" trabajo.id %}">
+                                <button class="btn btn-warning">Ver</button>
+                            </a>
+                            <a href="{% url "admin-mecanico-modtrabajo" trabajo.id %}">
+                                <button class="btn btn-warning">Modificar</button>
+                            </a>
+                        </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            </div>
+
+            <div class="row">
+                <h2>Trabajos Rechazados</h2>
+                <table class="tabla-pulenta">
+                <tr>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Titulo</th>
+                    <th>Auto</th>
+                    <th>Diagnostico</th>
+                    <th>Accion</th>
+                </tr>
+
+                {% for trabajo in trabajos %}
+                    {% if trabajo.revision == "Rechazado" %}
+                    	<tr>
+                            <td>Rechazado</td>
+                            <td>{{ trabajo.fecha_trabajo }}</td>
+                            <td>{{ trabajo.titulo }}</td>
+                            <td>{{ trabajo.auto }}</td>
+                            <td>{{ trabajo.diagnostico }}</td>
+                            <td>
+                                <a href="{% url "admin-mecanico-arreglartrabajo" trabajo.id %}">
+                                    <button class="btn btn-warning">Arreglar</button>
+                                </a>
+                                <a href="{% url "admin-mecanico-eliminartrabajo" trabajo.id %}">
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </a>
+                            </td>
+
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            </div>
+
+
+            <div class="row">
+                <h2>Trabajos Aprobados</h2>
+                <table class="tabla-pulenta">
+                <tr>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Titulo</th>
+                    <th>Auto</th>
+                    <th>Diagnostico</th>
+                    <th>Accion</th>
+                </tr>
+
+                {% for trabajo in trabajos %}
+                    {% if trabajo.revision == "Aprobado" %}
+                    	<tr>
+                            <td>Aprobado!</td>
+                            <td>{{ trabajo.fecha_trabajo }}</td>
+                            <td>{{ trabajo.titulo }}</td>
+                            <td>{{ trabajo.auto }}</td>
+                            <td>{{ trabajo.diagnostico }}</td>
+                            <td>
+                                <a href="{% url "admin-mecanico-vertrabajo" trabajo.id %}">
+                                    <button class="btn btn-warning">Ver</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+    <!-- los script los cargamos al final -->
+    <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+  </body>
+</html>

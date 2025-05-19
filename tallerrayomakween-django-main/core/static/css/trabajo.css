@@ -1,0 +1,22 @@
+.card-text {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 10px 5px 10px 3px #ccc;
+    border-radius: 20px;    
+}
+
+
+.card-text {
+    border-radius: 30px;
+    padding: 20px;
+    
+}
+
+
+.h1 {
+    text-align: center;
+    color: red;
+    
+}
+
+

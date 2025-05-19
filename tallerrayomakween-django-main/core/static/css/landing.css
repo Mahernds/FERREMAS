@@ -1,0 +1,262 @@
+* {
+  /* border: 1px solid red; */
+}
+
+
+/* Carrusel */
+.container-carrusel {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(223, 223, 223, 0.884);
+  max-height: 100vh;
+}
+
+.container-carrusel .c-container{
+  max-height: 100%;
+}
+
+.container-carrusel .row{
+  max-height: 100%;
+}
+
+.container-carrusel .container {
+  margin: 0;
+}
+
+.carousel-inner {
+  max-width: 100%;
+  max-height: 100%;
+  width: 90%;
+  height: auto;
+}
+
+.carousel-item img {
+  max-height: 100%;
+  max-width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: fill;
+}
+
+.carousel-caption {
+  padding: 3px 0px;
+}
+
+.carousel-caption .job-title {
+  width: 100%;
+  padding: 1px 0px;
+  text-align: center;
+  text-justify: auto;
+  background-color: rgba(0, 0, 0, 0.696);
+  border-radius: 10px;
+}
+
+.carousel-indicators {
+  background-color: rgba(0, 0, 0, 0.696);
+  width: 50%;
+  border-radius: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.carousel-indicators button {
+  border-radius: 50%;
+  border: 0px !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+/* Marcas autos */
+
+.caja-marca {
+  position: relative;
+  /* border: 1px solid grey; */
+  padding: 5px 5px;
+  text-align: center;
+  user-select: none;
+}
+
+.caja-marca p {
+  visibility: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
+  /* estilo texto */
+  width: 100px;
+  font-size: medium;
+  font-weight: bold;
+  padding: 5px;
+  border: 2px solid black;
+
+}
+
+.caja-marca:hover p {
+  visibility: visible;
+  opacity: 1;
+}
+
+.caja-marca img {
+  width: 10vh;
+  height: 100%;
+  transition: filter 0.3s, opacity 0.3s;
+}
+
+.caja-marca:hover img {
+  filter: blur(8px);
+  opacity: 0.6;
+}
+
+/* Servicios */
+.servicio-card {
+  width: 95%;
+  border-radius: 0px !important;
+}
+
+.servicio-card .card-body {
+  padding: 8px;
+}
+
+.servicio-card .card-title {
+  margin: 0;
+}
+
+.servicio-card img {
+  width: 100%;
+  border-radius: 0px !important;
+}
+
+.servicio-card hr {
+  width: 60%;
+  border: 3px solid #ed4e4a;
+  opacity: 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* visitanos */
+.estado-taller {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reloj {
+  margin-bottom: 10px;
+  background-color: rgba(230, 230, 230, 0.747);
+  width: 70%;
+  font-weight: bold;
+}
+
+.reloj p {
+  padding: 0;
+  margin: 0;
+}
+
+.div-apertura {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.div-apertura p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.icono-apertura {
+  display: none;
+  font-size: 1em;
+  font-weight: bolder;
+  color: white;
+  background-color: green;
+  width: 75px;
+  height: 75px;
+  border: 1px solid grey;
+  border-radius: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.abierto {
+  background-color: green;
+}
+
+.cerrado {
+  background-color: red;
+}
+
+/* forms */
+form{
+  /* background-color: gray; */
+  padding: 0px 12px;
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input{
+  border: none !important;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color) !important;
+  border-radius: 0% !important;
+}
+
+.text-box{
+  width: 100%;
+  max-width: 600px;
+}
+
+form button{
+  width: 80%;
+}
+
+.input-group span{
+  border: none;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: 0px;
+  color: rgb(58, 58, 58);
+}
+
+/* boton scroll up */
+#scrollBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  z-index: 99;
+
+  border: 1px solid rgb(134, 134, 134);
+  outline: none;
+  background-color: #ade1ee;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 10px;
+
+  width: 40px;
+  height: 40px;
+  opacity: 0.9;
+}
+
+#scrollBtn:hover {
+  background-color: #555;
+  /* Add a dark-grey background on hover */
+}
+
+#scrollBtn img{
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,216 @@
+* {
+  /* border: 1px solid red; */
+}
+
+/* paleta de colores
+#e9b796	(233,183,150)
+#a06561	(160,101,97)
+#ed4e4a	(237,78,74)
+#862922	(134,41,34)
+#ade1ee	(173,225,238) 
+*/
+
+/* Estilo para la barra de navegación */
+.navbar {
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+  box-shadow: 0px 2px 5px #ffd900;
+}
+
+.logo-header{
+  /* cambio de color a un svg negro*/
+  filter: invert(17%) sepia(28%) saturate(4763%) hue-rotate(343deg) brightness(97%) contrast(89%);
+}
+
+/* Estilo para los enlaces de navegación */
+.nav-link {
+  color: #000000;
+  transition: color 0.5s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #ff0000;
+}
+
+/* Estilo para los elementos a la derecha */
+.r-elements img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.5s ease;
+}
+
+.r-elements img:hover {
+  transform: scale(1.2);
+}
+
+/* Estilo para el contador del carrito */
+#contadorCarrito {
+  display: none;
+  position: absolute;
+  right: -7px;
+  top: 14px;
+  text-align: center;
+  font-weight: bold;
+  font-size: small;
+  width: 26px;
+  height: 23px;
+  padding: 0;
+  color: #ed4e4a;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+
+.tc {
+  background-color: aqua;
+  border: 1px solid black;
+  height: 10px;
+}
+
+.r-elements img {
+  width: 40px;
+  color: black;
+}
+
+/* Navbar */
+.logo-marca-auto {
+  width: 60px;
+  height: 60px;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.215);
+  box-shadow: 0px 2px 5px #862922a8;
+}
+
+.logo-header {
+  width: auto;
+  height: auto;
+}
+
+nav {
+  background-color: white;
+}
+
+h1 {
+  color: #862922;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;;
+}
+
+.navbar-brand img {
+  width: 100%;
+  max-width: 90px;
+}
+
+.nav-link svg {
+  color: black;
+  width: 2em;
+}
+
+.inicio-sesion {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+/* trabajos.html */
+
+.trabajos-cartas .card {
+  max-width: 100%;
+}
+
+/* trabajo-x.html */
+.trabajo-header h1 {
+  text-align: center;
+  color: blue;
+  text-wrap: wrap;
+}
+
+.trabajo-header svg {
+  max-width: 30px;
+}
+
+.trabajo-header img {
+  max-width: 100%;
+  margin: auto;
+}
+
+/* productos.html */
+
+.producto-card .card {
+  max-width: 100%;
+}
+
+/* contacto.html */
+.contacto-detalle svg {
+  max-width: 30px;
+  margin-right: 5px;
+}
+
+/* Footer */
+footer {
+  background-color: brown;
+  color: white;
+}
+
+.logo-footer img {
+  width: 300px;
+  padding-bottom: 3px;
+}
+
+.datos-contacto {
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.datos-contacto p {
+  margin-bottom: 0;
+}
+
+.footer-redes {
+  display: flex;
+}
+
+.logos-redes {
+  width: 100%;
+  text-align: center;
+}
+
+.logos-redes img {
+  width: 45px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  fill: white;
+}
+
+.cp {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0;
+  text-align: center;
+  font-size: small;
+}
+
+.click-qr {
+  fill: none;
+  color: white;
+  font-weight: bold;
+}
+
+.codigoqr {
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}

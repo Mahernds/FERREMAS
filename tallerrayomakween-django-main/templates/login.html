@@ -1,0 +1,168 @@
+<!-- html base -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Taller Rayo Makween</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+
+  <br>
+
+  <div class="container inicio-sesion p-3">
+    <div class="row justify-content-center align-items-center g-2">
+      <h1>Iniciar Sesion</h1>
+    </div>
+
+    <div class="row justify-content-center align-items-center g-2">
+      <div class="col">
+        <p>¿No tienes cuenta?
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Click aqui!</button>
+        </p>
+      </div>
+    </div>
+    <!-- logo de inicio de sesion -->
+    <div class="row justify-content-center align-items-center g-2">
+      <img src="" alt="" />
+    </div>
+    <!-- forms de nombre de usuario y contraseña -->
+    <div class="row justify-content-center align-items-center g-2">
+      <form method="POST" class="form-validation" novalidate>
+          {% csrf_token %}
+        <div class="form-group">
+          <label for="correoInicioSesion">Correo</label>
+          <input type="email" class="form-control" id="correoInicioSesion" aria-describedby="emailHelp"
+            placeholder="Ingrese su correo"
+                 name="login_email"
+                 required />
+          <div class="invalid-feedback">Ingrese un correo valido</div>
+        </div>
+        <div class="form-group">
+          <label for="contrasennaInicioSession">Contraseña</label>
+          <input type="password" class="form-control" id="contrasennaInicioSession" placeholder="Ingrese su contraseña"
+                 name="login_password"
+            required />
+          <div class="invalid-feedback">Debe ingresar su contraseña</div>
+        </div>
+        <br>
+        <!-- link a recuperar contraseña -->
+        <a href="">¿Olvido su contraseña?</a>
+        <br>
+        <button type="submit" class="btn btn-primary d-block mx-auto mt-2"
+        name="login">
+          Continuar
+        </button>
+      </form>
+        {% for message in messages %}
+        	<p>{{ message }}</p>
+        {% endfor %}
+
+    </div>
+  </div>
+  <br>
+    
+    
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Crea tu cuenta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- contenido del Modal -->
+          <div class="row justify-content-center align-items-center g-2">
+            <form class="form-validation" method="POST" action="">
+                {% csrf_token %}
+
+                <!-- nombre -->
+              <div class="form-group">
+                <label for="username">Nombre</label>
+                {{ register_form.first_name }}
+                <div class="invalid-feedback">Ingrese un nombre valido</div>
+              </div>
+                <!-- correo -->
+              <div class="form-group">
+                <label for="email">Correo</label>
+                {{ register_form.email }}
+                <div class="invalid-feedback">Ingrese un correo valido</div>
+              </div>
+              <!-- contraseña -->
+              <div class="form-group">
+                <label for="password1">Contraseña</label>
+                {{ register_form.password1 }}
+                <div class="invalid-feedback">Debe ingresar su contraseña</div>
+              </div>
+
+                <div class="form-group">
+                <label for="password2">Confirme su contraseña</label>
+                {{ register_form.password2 }}
+                <div class="invalid-feedback">Debe ingresar su contraseña</div>
+              </div>
+
+
+              <button type="submit" class="btn btn-primary d-block mx-auto mt-2"
+              name="register">
+                Registrar usuario
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    {% include 'footer.html' %}
+
+  <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      "use strict";
+      window.addEventListener(
+        "load",
+        function () {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName("form-validation");
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(
+            forms,
+            function (form) {
+              form.addEventListener(
+                "submit",
+                function (event) {
+                  if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                  form.classList.add("was-validated");
+                },
+                false
+              );
+            }
+          );
+        },
+        false
+      );
+    })();
+  </script>
+    
+  <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <!-- nav collapse al apretar en la pagina -->
+    <script src="{% static "scripts/navCollapse.js" %}"></script>
+    <!-- contador del carrito -->
+    {# <script src="../scripts/contadorCarrito.js"></script> #}
+</body>
+
+</html>

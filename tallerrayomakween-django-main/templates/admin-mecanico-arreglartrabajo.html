@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taller Rayo Makween</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+      <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/navbar-admin.css' %}">
+      <link rel="stylesheet" href="{% static 'css/admin-mecanico.css' %}">
+  </head>
+
+  <body>
+  {# insertamos el navbar #}
+  {% include "navbar-admin.html" %}
+
+    <main>
+        <div class="container">
+            <p>Observaciones</p>
+            <p>
+                {{ trabajo.observaciones }}
+            </p>
+        </div>
+        <div class="container">
+            <h2>Modificar Trabajo</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    {{ trabajo_form.as_table }}
+                </div>
+
+            <input type="submit" name="modificar-trabajo">
+        </form>
+        </div>
+    </main>
+
+    <!-- los script los cargamos al final -->
+    <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+  </body>
+</html>

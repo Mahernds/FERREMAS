@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taller Rayo Makween</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+      <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/navbar-admin.css' %}">
+      <link rel="stylesheet" href="{% static 'css/admin-mecanico.css' %}">
+  </head>
+
+  <body>
+  {# insertamos el navbar #}
+  {% include "navbar-admin.html" %}
+
+    <main>
+
+        <table class="tabla-pulenta">
+                <tr>
+                    <th>Fecha Creacion</th>
+                    <th>Fecha Trabajo</th>
+                    <th>auto</th>
+                    <th>diagnostico</th>
+                    <th>revision</th>
+                </tr>
+
+                {% for trabajo in trabajos %}
+                <tr>
+
+                	<td>{{ trabajo.fecha_creacion }}</td>
+                    <td>{{ trabajo.fecha_trabajo }}</td>
+                    <td>{{ trabajo.auto }}</td>
+                    <td>{{ trabajo.diagnostico }}</td>
+                    <td>{{ trabajo.revision }}</td>
+                </tr>
+
+                {% endfor %}
+
+
+            </table>
+
+
+
+    </main>
+
+    <!-- los script los cargamos al final -->
+    <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+  </body>
+</html>

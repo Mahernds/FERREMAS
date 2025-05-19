@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taller Rayo Makween</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+      <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/navbar-admin.css' %}">
+      <link rel="stylesheet" href="{% static 'css/admin-mecanico.css' %}">
+  </head>
+
+  <body>
+  {# insertamos el navbar #}
+  {% include "navbar-admin.html" %}
+
+    <main>
+
+        <div class="container">
+            <p>¿Esta seguro que quiere eliminar el siguiente trabajo?</p>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img src="{{ trabajo.foto_principal.url }}">
+
+                </div>
+                    <div class="col justify-content-center d-flex">
+                      <div class="card" style="width: 18rem">
+                        <img
+                          src=""
+                          class="card-img-top"
+                          alt="..."
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title">Francisco</h5>
+                          <p class="card-text">Especialidad: Diagnóstico Electrónico</p>
+                        </div>
+                      </div>
+                    </div>
+                <div class="col">
+                    <div class="row">
+                        {{ trabajo.titulo }}
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ trabajo.mecanico.nombre }}
+                        </div>
+                        <div class="col">
+                            {{ trabajo.mecanico.especialidad }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{ trabajo.fecha_trabajo }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{ trabajo.diagnostico }}
+                </div>
+                <div class="col">
+                    {{ trabajo.descripcion }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container">
+            <form method="POST" action="{% url "admin-mecanico-eliminartrabajo" trabajo.id %}">
+                {% csrf_token %}
+                <a href="{% url "admin-mecanico" %}">
+                    <button type="button" class="btn btn-primary">Volver</button>
+                </a>
+
+                <button type="submit" class="btn btn-danger">CONFIRMAR</button>
+            </form>
+        </div>
+
+
+
+    </main>
+
+    <!-- los script los cargamos al final -->
+    <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+  </body>
+</html>

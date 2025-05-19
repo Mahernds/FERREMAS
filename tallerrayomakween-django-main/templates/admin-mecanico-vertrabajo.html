@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taller Rayo Makween</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+      <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.css' %}">
+      <link rel="stylesheet" href="{% static 'css/navbar-admin.css' %}">
+      <link rel="stylesheet" href="{% static 'css/admin-mecanico-vertrabajo.css' %}">
+  </head>
+
+  <body>
+  {# insertamos el navbar #}
+  {% include "navbar-admin.html" %}
+
+    <main>
+        <a href="{% url "admin-mecanico" %}">
+        <button class="btn btn-primary" >Volver</button>
+        </a>
+       <h1>Trabajo: {{ trabajo.titulo }}</h1>
+
+        <div class="col justify-content-center d-flex">
+                      <div class="card" style="width: 25rem">
+                        <img
+                          src="{{ trabajo.foto_principal.url }}"
+                          class="card-img-top"
+                          alt="auto"
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title">{{ trabajo.titulo }}</h5>
+                            <h6 class="card-title">{{ trabajo.mecanico.nombre }}</h6>
+                            <h6 class="card-title">{{ trabajo.mecanico.especialidad }}</h6>
+                            <h6 class="card-title">{{ trabajo.diagnostico }}</h6>
+                            <h6 class="card-title">{{ trabajo.descripcion }}</h6>
+                            <p class="card-text">{{ trabajo.fecha_trabajo }}</p>
+                        </div>
+                      </div>
+                    </div>
+        <br>
+
+    </main>
+
+    <!-- los script los cargamos al final -->
+    <script src="{% static "bootstrap-5.3.3/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "jquery-3.2.1/jquery-3.2.1.min.js" %}"></script>
+  </body>
+</html>
