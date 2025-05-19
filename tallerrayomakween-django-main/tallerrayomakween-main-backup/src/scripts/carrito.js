@@ -1,14 +1,3 @@
-/**
- * carrito.js
- * Lógica para mostrar y gestionar el carrito de compras
- * Usa localStorage con la clave 'carrito'
- * Estructura de cada producto: {id, nombre, precio, cantidad, imagen}
- */
-
-/**
- * Agrega un producto al carrito en localStorage.
- * @param {Object} producto - Debe tener id, nombre, precio, imagen.
- */
 function agregarAlCarrito(producto) {
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const idx = carrito.findIndex(p => p.id == producto.id);
@@ -19,12 +8,12 @@ function agregarAlCarrito(producto) {
       id: producto.id,
       nombre: producto.nombre,
       precio: producto.precio,
-      imagen: producto.imagen || '', // Opcional
+      imagen: producto.imagen || '',
       cantidad: 1
     });
   }
   localStorage.setItem('carrito', JSON.stringify(carrito));
-  if (window.actualizarContadorCarrito) window.actualizarContadorCarrito(true); // true para animar
+  if (window.actualizarContadorCarrito) window.actualizarContadorCarrito(true);
 }
 
 function obtenerCarrito() {
@@ -42,7 +31,7 @@ function renderizarCarrito() {
   const vacioDiv = document.getElementById('carrito-vacio');
   const contenidoDiv = document.getElementById('carrito-contenido');
 
-  if (!tbody || !totalSpan || !vacioDiv || !contenidoDiv) return; // Si no estamos en carrito.html
+  if (!tbody || !totalSpan || !vacioDiv || !contenidoDiv) return;
 
   tbody.innerHTML = '';
   let total = 0;
@@ -82,6 +71,40 @@ function renderizarCarrito() {
 
   totalSpan.textContent = total.toLocaleString();
   if (window.actualizarContadorCarrito) window.actualizarContadorCarrito();
+
+  renderizarBotonPaypal(); // ← ¡Aquí se renderiza PayPal!
+}
+
+// Renderizar botón PayPal solo si no ha sido renderizado
+function renderizarBotonPaypal() {
+  const paypalContainer = document.getElementById('paypal-button-container');
+  if (!paypalContainer || paypalContainer.children.length > 0) return;
+
+  const totalElement = document.getElementById('carrito-total');
+  const total = parseFloat(totalElement.textContent.replace(/[^\d]/g, '') || "0");
+
+  paypal.Buttons({
+    createOrder: function (data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            currency_code: "CLP",
+            value: total.toFixed(0)
+          }
+        }]
+      });
+    },
+    onApprove: function (data, actions) {
+      return actions.order.capture().then(function (details) {
+        localStorage.removeItem('carrito'); // Vacía el carrito al pagar
+        window.location.href = 'gracias.html';
+      });
+    },
+    onError: function (err) {
+      console.error('Error en el pago:', err);
+      alert('Hubo un error al procesar el pago.');
+    }
+  }).render('#paypal-button-container');
 }
 
 // Cambiar cantidad
@@ -118,13 +141,8 @@ document.addEventListener('click', function (e) {
   }
 });
 
-// Proceder al pago (puedes enlazar a la integración de PayPal después)
-document.addEventListener('click', function (e) {
-  if (e.target.id === 'btn-pagar') {
-    alert('Aquí irá la integración con PayPal.');
-    // window.location.href = 'pago.html'; // Si tienes una página de pago
-  }
-});
+// Ya no se usa 'btn-pagar'
+// Se eliminó la función onclick de btn-pagar
 
 // Renderizar al cargar
 document.addEventListener('DOMContentLoaded', renderizarCarrito);
