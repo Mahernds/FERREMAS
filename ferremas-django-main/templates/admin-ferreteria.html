@@ -1,0 +1,28 @@
+{% extends "navbar-admin.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Panel Administrador Ferretería</h2>
+
+    <h4>Trabajadores Registrados</h4>
+    <a href="{% url 'admin_ferreteria_crear_trabajador' %}" class="btn btn-success mb-3">+ Nuevo Trabajador</a>
+    <ul class="list-group mb-5">
+        {% for t in trabajadores %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ t.nombre }} ({{ t.rut }})
+            <a href="{% url 'admin_ferreteria_eliminar_trabajador' t.rut %}" class="btn btn-sm btn-danger">Eliminar</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No hay trabajadores registrados.</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Productos en el sistema</h4>
+    <ul class="list-group">
+        {% for p in productos %}
+        <li class="list-group-item">
+            {{ p.nombre }} - {{ p.marca }} - ${{ p.precio }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

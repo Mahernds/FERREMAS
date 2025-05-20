@@ -7,48 +7,51 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import Group, User
 
 from . import models
-from .forms import RegisterClienteForm, MecanicoForm, UserForm, TrabajoForm, RevisionForm
+from .forms import ClienteForm, TrabajadorForm, UserForm, ProductoForm
 from .decorators import unauthenticated_user, allowed_users
-from .models import Mecanico, Trabajo
+from .models import Trabajador, Producto
 
-# Create your views here.
+
 def index(request):
-    ultimos_trabajos = Trabajo.objects.filter(revision="Aprobado").order_by('fecha_creacion')[:3]
-    ultimo_trabajo = ultimos_trabajos[0]
-    sig_trabajos = ultimos_trabajos[1:]
-    context = {"ultimo_trabajo": ultimo_trabajo,
-               "sig_trabajos": sig_trabajos
-               }
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render(context, request))
+    productos_destacados = Producto.objects.filter(estado="Disponible").order_by('-fecha_ingreso')[:3]
+    producto_destacado = productos_destacados[0] if productos_destacados else None
+    otros_productos = productos_destacados[1:] if productos_destacados.count() > 1 else []
+
+    context = {
+        "producto_destacado": producto_destacado,
+        "otros_productos": otros_productos
+    }
+    return render(request, 'index.html', context)
+
 
 def nosotros(request):
-    template = loader.get_template('nosotros.html')
-    return HttpResponse(template.render({}, request))
+    return render(request, 'nosotros.html')
 
 
 @unauthenticated_user
 def login(request):
-    register_form = RegisterClienteForm()
-    context = {'register_form': register_form}
-    template = loader.get_template('login.html')
+    cliente_form = ClienteForm()
+    context = {'cliente_form': cliente_form}
 
     if request.method == 'POST':
         if "register" in request.POST:
-            user_creation_form = RegisterClienteForm(request.POST)
-            if user_creation_form.is_valid():
-                #creamos el usuario de forma manual
-                user = User.objects.create_user(username=user_creation_form.cleaned_data['email'],
-                                                email=user_creation_form.cleaned_data['email'],
-                                                password=user_creation_form.cleaned_data['password1'],
-                                                first_name=user_creation_form.cleaned_data['first_name'],)
-
-                # asignamos el grupo "cliente"
-                group_cliente = Group.objects.get(name='cliente')
-                user.groups.add(group_cliente)
-
+            cliente_form = ClienteForm(request.POST)
+            if cliente_form.is_valid():
+                user = User.objects.create_user(
+                    username=cliente_form.cleaned_data['email'],
+                    email=cliente_form.cleaned_data['email'],
+                    password='default1234',
+                    first_name=cliente_form.cleaned_data['nombre'],
+                )
+                group = Group.objects.get(name='cliente')
+                user.groups.add(group)
                 user.save()
-                messages.success(request, 'Registrado con exito!')
+
+                cliente = cliente_form.save(commit=False)
+                cliente.user = user
+                cliente.save()
+
+                messages.success(request, 'Cliente registrado con éxito.')
                 return redirect("/login")
 
         if "login" in request.POST:
@@ -59,253 +62,154 @@ def login(request):
 
             if user is not None:
                 auth_login(request, user)
-                messages.success(request, 'Login exitoso!')
                 return redirect("/auth_error")
             else:
-                messages.info(request, "Correo o Contraseña incorrectos")
+                messages.error(request, "Correo o contraseña incorrectos.")
 
-    return HttpResponse(template.render(context, request))
+    return render(request, 'login.html', context)
+
 
 def user_logout(request):
     logout(request)
     return redirect('/')
 
+
 def auth_error(request):
     if not request.user.groups.exists():
         return redirect("/")
-
+    
     group = request.user.groups.all()[0].name
-    print(group)
-    if group == "administrador_taller":
-        return redirect("/admin_taller")
+
+    if group == "administrador_ferreteria":
+        return redirect("/admin_ferreteria")
     if group == "cliente":
         return redirect("/")
-    if group == "mecanico":
-        return redirect("/admin_mecanico")
-
-    if group == "superuser":
-        return redirect("/admin")
+    if group == "trabajador":
+        return redirect("/admin_trabajador")
 
     return redirect("/")
 
-def nuestros_trabajos(request):
-    trabajos_validos = Trabajo.objects.filter(revision="Aprobado")
-    #procesamos las querys de busqueda
-
-    #busqueda por mecanico
-    if "m" in request.GET:
-        mecanico = Mecanico.objects.filter(nombre=request.GET['m']).first()
-
-        if mecanico:
-            trabajos_validos = trabajos_validos.filter(mecanico = mecanico)
-        else:
-            trabajos_validos = None
-
-    context = {'trabajos': trabajos_validos}
-    template = loader.get_template('trabajos.html')
-    return HttpResponse(template.render(context, request))
-
-
-def ver_trabajo(request, pk):
-    trabajo = Trabajo.objects.get(id=pk)
-    context = {'trabajo': trabajo}
-    return render(request,"ver-trabajo.html",context)
 
 def productos(request):
-    template = loader.get_template('productos.html')
-    return HttpResponse(template.render({}, request))
+    productos_disponibles = Producto.objects.filter(estado="Disponible")
 
-#####################################################################
-# Vistas del Administrador del Taller
-#####################################################################
-@allowed_users(allowed_roles=['administrador_taller'])
-def admin_taller(request):
-    context={
-        "mecanicos" : Mecanico.objects.all(),
-        "trabajos" : Trabajo.objects.all(),
+    if "trabajador" in request.GET:
+        trabajador = Trabajador.objects.filter(nombre=request.GET['trabajador']).first()
+        if trabajador:
+            productos_disponibles = productos_disponibles.filter(trabajador=trabajador)
+        else:
+            productos_disponibles = Producto.objects.none()
+
+    return render(request, 'productos.html', {"productos": productos_disponibles})
+
+
+def ver_producto(request, pk):
+    producto = Producto.objects.get(id=pk)
+    return render(request, "ver-producto.html", {"producto": producto})
+
+
+# ---------------------------
+# ADMIN FERRETERÍA
+# ---------------------------
+@allowed_users(allowed_roles=['administrador_ferreteria'])
+def admin_ferreteria(request):
+    context = {
+        "trabajadores": Trabajador.objects.all(),
+        "productos": Producto.objects.all(),
     }
-    return render(request,"admin-taller.html",context)
+    return render(request, "admin-ferreteria.html", context)
 
-@allowed_users(allowed_roles=['administrador_taller'])
-def admin_taller_crearcuenta(request):
-    mecanico_form = MecanicoForm()
+
+@allowed_users(allowed_roles=['administrador_ferreteria'])
+def admin_ferreteria_crear_trabajador(request):
+    trabajador_form = TrabajadorForm()
     user_form = UserForm()
+
     if request.method == "POST":
-        mecanico_form = MecanicoForm(request.POST, prefix='mecanico_form')
+        trabajador_form = TrabajadorForm(request.POST, prefix='trabajador_form')
         user_form = UserForm(request.POST, prefix='user_form')
-        #print(1)
-        #print(mecanico_form.is_valid(), user_form.is_valid())
-        if mecanico_form.is_valid() and user_form.is_valid():
-            #print(2)
-            #creamos el nuevo usuario
-            user = User.objects.create_user(username=user_form.cleaned_data['email'],
-                                            email=user_form.cleaned_data['email'],
-                                            password=user_form.cleaned_data['password1'],
-                                            first_name=mecanico_form.cleaned_data['nombre'], )
-            # asignamos el grupo "cliente"
-            group_mecanico = Group.objects.get(name='mecanico')
-            user.groups.add(group_mecanico)
-            user.save()
-            #creamos el mecanico y asignamos su usuario
-            mecanico = Mecanico.objects.create(user=user,
-                                               rut=mecanico_form.cleaned_data['rut'],
-                                               nombre=mecanico_form.cleaned_data['nombre'],
-                                               telefono=mecanico_form.cleaned_data['telefono'],
-                                               fecha_nacimiento=mecanico_form.cleaned_data['fecha_nacimiento'],
-                                               direccion=mecanico_form.cleaned_data['direccion'],
-                                               especialidad=mecanico_form.cleaned_data['especialidad']
-                                               )
-            mecanico.save()
-            return redirect("/admin_taller")
 
-    context = {"user_form": user_form,
-               'mecanico_form': mecanico_form}
-    return render(request, "admin-taller-crearcuenta.html", context)
-
-@allowed_users(allowed_roles=['administrador_taller'])
-def admin_taller_actualizarcuenta(request, pk):
-    mecanico = Mecanico.objects.get(rut=pk)
-    user = mecanico.user
-
-    mecanico_form = MecanicoForm(instance=mecanico)
-
-    if request.method == "POST":
-        mecanico_form = MecanicoForm(request.POST, instance=mecanico)
-        if mecanico_form.is_valid():
-            mecanico_form.save()
-            return redirect("/admin_taller")
-
-    context = {'mecanico_form': mecanico_form}
-    return render(request, "admin-taller-crearcuenta.html", context)
-
-@allowed_users(allowed_roles=['administrador_taller'])
-def admin_taller_borrarcuenta(request, pk):
-    mecanico = Mecanico.objects.get(rut=pk)
-    user = mecanico.user
-    context ={"mecanico" : mecanico,
-              "user" : user
-              }
-
-    if request.method == "POST":
-        print(mecanico)
-        user.delete()
-        mecanico.delete()
-        return redirect("/admin_taller")
-
-    return render(request, "admin-taller-borrarcuenta.html", context)
-
-
-@allowed_users(allowed_roles=['administrador_taller'])
-def admin_taller_revisartrabajo(request, pk):
-    trabajo = Trabajo.objects.get(id=pk)
-    revision_form = RevisionForm(instance=trabajo)
-    context = {"trabajo" : trabajo,
-               "revision_form": revision_form}
-
-    if request.method == "POST":
-        revision_form = RevisionForm(request.POST)
-        if revision_form.is_valid():
-            trabajo = Trabajo.objects.get(id=pk)
-            trabajo.revision = revision_form.cleaned_data['revision']
-            trabajo.observaciones = revision_form.cleaned_data['observaciones']
-            trabajo.save()
-            return redirect("/admin_taller")
-    return render(request, "admin-taller-revisartrabajo.html", context)
-
-@allowed_users(allowed_roles=['administrador_taller'])
-def admin_taller_trabajos(request):
-    context={
-        "trabajos" : Trabajo.objects.all(),
-    }
-    return render(request,"admin-taller-trabajos.html",context)
-#####################################################################
-# Vistas del Mecanico
-#####################################################################
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico(request):
-    mecanico_actual = Mecanico.objects.filter(user=request.user).first()
-    trabajos = Trabajo.objects.filter(mecanico = mecanico_actual)
-    context = {"trabajos":trabajos}
-    return render(request, "admin-mecanico.html", context)
-
-
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico_trabajos(request):
-    trabajos = Trabajo.objects.all()
-    context = {"trabajos":trabajos}
-    return render(request, "admin-mecanico-trabajos.html", context)
-
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico_nuevotrabajo(request):
-    trabajo_form = TrabajoForm()
-    context = {"trabajo_form": trabajo_form}
-
-    if request.method == "POST":
-        trabajo_form = TrabajoForm(request.POST, request.FILES)
-        print(1)
-        print(trabajo_form.errors.as_data())
-        if trabajo_form.is_valid():
-            print(2)
-            mecanico = Mecanico.objects.get(user=request.user)
-            trabajo = Trabajo.objects.create(
-                mecanico = mecanico,
-                titulo=trabajo_form.cleaned_data['titulo'],
-                foto_principal=trabajo_form.cleaned_data['foto_principal'],
-                fecha_trabajo=trabajo_form.cleaned_data['fecha_trabajo'],
-                auto=trabajo_form.cleaned_data['auto'],
-                diagnostico=trabajo_form.cleaned_data['diagnostico'],
-                descripcion=trabajo_form.cleaned_data['descripcion'],
-                revision="Por revisar",
+        if trabajador_form.is_valid() and user_form.is_valid():
+            user = User.objects.create_user(
+                username=user_form.cleaned_data['email'],
+                email=user_form.cleaned_data['email'],
+                password=user_form.cleaned_data['password'],
+                first_name=trabajador_form.cleaned_data['nombre'],
             )
-            trabajo.save()
-            print(trabajo)
-            return redirect("/admin_mecanico")
 
-    return render(request, "admin-mecanico-nuevotrabajo.html", context)
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico_vertrabajo(request, pk):
-    trabajo = Trabajo.objects.get(id=pk)
-    context = {"trabajo": trabajo}
-    return render(request, "admin-mecanico-vertrabajo.html", context)
+            group = Group.objects.get(name='trabajador')
+            user.groups.add(group)
+            user.save()
 
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico_modtrabajo(request, pk):
-    trabajo = Trabajo.objects.get(id=pk)
-    trabajo_form = TrabajoForm(instance=trabajo)
+            trabajador = trabajador_form.save(commit=False)
+            trabajador.user = user
+            trabajador.save()
 
-    if request.method == "POST":
-        trabajo_form = TrabajoForm(request.POST, request.FILES, instance=trabajo)
-        if trabajo_form.is_valid():
-            trabajo_form.save()
-            return redirect("/admin_mecanico")
+            return redirect("/admin_ferreteria")
 
-    context = {'trabajo_form': trabajo_form}
-    return render(request, "admin-mecanico-nuevotrabajo.html", context)
+    context = {"user_form": user_form, 'trabajador_form': trabajador_form}
+    return render(request, "admin-ferreteria-crear-trabajador.html", context)
 
 
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico_eliminartrabajo(request, pk):
-    trabajo = Trabajo.objects.get(id=pk)
-    context = {"trabajo": trabajo}
+@allowed_users(allowed_roles=['administrador_ferreteria'])
+def admin_ferreteria_eliminar_trabajador(request, pk):
+    trabajador = Trabajador.objects.get(rut=pk)
+    user = trabajador.user
 
     if request.method == "POST":
-        trabajo.delete()
-        return redirect("/admin_mecanico")
+        user.delete()
+        trabajador.delete()
+        return redirect("/admin_ferreteria")
 
-    return render(request, "admin-mecanico-eliminartrabajo.html", context)
-@allowed_users(allowed_roles=['mecanico'])
-def admin_mecanico_arreglartrabajo(request, pk):
-    trabajo = Trabajo.objects.get(id=pk)
-    trabajo_form = TrabajoForm(instance=trabajo)
-    context = {"trabajo_form":trabajo_form,
-               "trabajo":trabajo}
+    return render(request, "admin-ferreteria-eliminar-trabajador.html", {"trabajador": trabajador})
+
+
+# ---------------------------
+# ADMIN TRABAJADOR
+# ---------------------------
+@allowed_users(allowed_roles=['trabajador'])
+def admin_trabajador(request):
+    trabajador = Trabajador.objects.get(user=request.user)
+    productos = Producto.objects.filter(trabajador=trabajador)
+    return render(request, "admin-trabajador.html", {"productos": productos})
+
+
+@allowed_users(allowed_roles=['trabajador'])
+def admin_trabajador_nuevo_producto(request):
+    form = ProductoForm()
 
     if request.method == "POST":
-        trabajo_form = TrabajoForm(request.POST, request.FILES, instance=trabajo)
-        if trabajo_form.is_valid():
-            trabajo_form.save()
-            trabajo.revision = "Por revisar"
-            trabajo.save()
-            return redirect("/admin_mecanico")
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save(commit=False)
+            producto.trabajador = Trabajador.objects.get(user=request.user)
+            producto.estado = "Disponible"
+            producto.save()
+            return redirect("/admin_trabajador")
 
-    return render(request, "admin-mecanico-arreglartrabajo.html", context)
+    return render(request, "admin-trabajador-nuevo-producto.html", {"form": form})
+
+
+@allowed_users(allowed_roles=['trabajador'])
+def admin_trabajador_modificar_producto(request, pk):
+    producto = Producto.objects.get(id=pk)
+    form = ProductoForm(instance=producto)
+
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect("/admin_trabajador")
+
+    return render(request, "admin-trabajador-nuevo-producto.html", {"form": form})
+
+
+@allowed_users(allowed_roles=['trabajador'])
+def admin_trabajador_eliminar_producto(request, pk):
+    producto = Producto.objects.get(id=pk)
+
+    if request.method == "POST":
+        producto.delete()
+        return redirect("/admin_trabajador")
+
+    return render(request, "admin-trabajador-eliminar-producto.html", {"producto": producto})

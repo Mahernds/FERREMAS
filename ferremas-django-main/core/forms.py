@@ -1,55 +1,35 @@
-from django.forms import ModelForm
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Cliente, Producto, Trabajador, AdministradorFerreteria
 
-from .models import Mecanico, Trabajo
 
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
 
-class RegisterClienteForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['first_name',"email", 'password1', 'password2']
+        fields = ['username', 'email', 'password']
 
 
-class UserForm(UserCreationForm):
+class ClienteForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ["email", 'password1', 'password2']
-class MecanicoForm(forms.ModelForm):
+        model = Cliente
+        fields = ['rut', 'nombre', 'telefono', 'email']
+
+
+class AdministradorFerreteriaForm(forms.ModelForm):
     class Meta:
-        model = Mecanico
-        fields = [
-            "rut",
-            "nombre",
-            "telefono",
-            "fecha_nacimiento",
-            "direccion",
-            "especialidad"
-        ]
+        model = AdministradorFerreteria
+        fields = ['rut', 'nombre', 'telefono', 'email']
 
-class TrabajoForm(forms.ModelForm):
+
+class TrabajadorForm(forms.ModelForm):
     class Meta:
-        model = Trabajo
-        fields = [
-            "foto_principal",
-            "titulo",
-            "fecha_trabajo",
-            "auto",
-            "diagnostico",
-            "descripcion",
-        ]
+        model = Trabajador
+        fields = ['rut', 'nombre', 'telefono', 'fecha_nacimiento', 'direccion', 'area']
 
-class RevisionForm(forms.ModelForm):
-    ESTADO_REVISION = (
-        ("Aprobado", "Aprobado"),
-        ("Rechazado", "Rechazado")
-    )
-    revision = forms.ChoiceField(choices=ESTADO_REVISION)
 
+class ProductoForm(forms.ModelForm):
     class Meta:
-        model = Trabajo
-        fields = [
-            "observaciones",
-        ]
-
+        model = Producto
+        fields = ['trabajador', 'foto', 'nombre', 'fecha_ingreso', 'marca', 'descripcion', 'precio', 'stock', 'estado', 'observaciones']
