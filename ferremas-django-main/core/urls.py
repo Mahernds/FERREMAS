@@ -11,6 +11,10 @@ urlpatterns = [
     path('productos/', views.productos, name='productos'),
     path('producto/<int:pk>/', views.ver_producto, name='ver_producto'),
 
+    path('trabajos/', views.trabajos, name='trabajos'),
+    
+
+
     # Admin Ferretería
     path('admin_ferreteria/', views.admin_ferreteria, name='admin_ferreteria'),
     path('admin_ferreteria/crear_trabajador/', views.admin_ferreteria_crear_trabajador, name='admin_ferreteria_crear_trabajador'),

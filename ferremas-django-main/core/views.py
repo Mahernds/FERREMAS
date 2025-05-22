@@ -107,6 +107,8 @@ def ver_producto(request, pk):
     producto = Producto.objects.get(id=pk)
     return render(request, "ver-producto.html", {"producto": producto})
 
+def trabajos(request):
+    return render(request, "trabajos.html")
 
 # ---------------------------
 # ADMIN FERRETERÍA
