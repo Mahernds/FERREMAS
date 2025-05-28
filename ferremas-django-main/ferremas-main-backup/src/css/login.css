@@ -1,49 +1,71 @@
-body{
+/* Fondo general */
+body {
     background-image: url('https://img.freepik.com/foto-gratis/composicion-moderna-mecanico-automoviles_23-2147881649.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-h1{
 
+/* Título principal */
+h1 {
+    color: #862922;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
-.inicio-sesion{
+
+/* Contenedor de inicio de sesión */
+.inicio-sesion {
     background-color: #f8f9fa;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    max-width: 400px;
-    margin: 1rem auto;
-    margin-bottom: 7rem;
-    padding: 1rem;
-    padding-bottom: 5000px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    max-width: 420px;
+    margin: 2rem auto 7rem auto;
+    padding: 2rem;
 }
 
-.container.inicio-sesion button[type="submit"] {
+/* Botón de enviar */
+.container.inicio-sesion button[type="submit"],
+.container.inicio-sesion button.btn.btn-primary {
     width: 100%;
     padding: 0.75rem;
     background-color: #862922;
     border: none;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
-  
-.container.inicio-sesion button[type="submit"]:hover {
+
+.container.inicio-sesion button[type="submit"]:hover,
+.container.inicio-sesion button.btn.btn-primary:hover {
     background-color: #ffc400;
-  }
-  footer{
-    background-color:#862922;
-  }
-  .container.inicio-sesion button[class="btn btn-primary"] {
-    background-color: #862922;
-    border: none;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    border-radius: 5px;
+    color: #000000;
 }
-  
-.container.inicio-sesion button[class="btn btn-primary"]:hover {
-    background-color:   #ffc400;
-  }
-  footer{
+
+/* Footer */
+footer {
     background-color: #862922;
-  }
+    color: white;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+footer p {
+    margin: 0.2rem 0;
+}
+
+footer img {
+    width: 28px;
+    margin: 0 8px;
+}
+
+footer a {
+    color: #ffc400;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

@@ -28,3 +28,8 @@
     width: 80%;
 }
 
+.logo-header {
+  height: 60px;
+  width: auto;
+  filter: none;
+}

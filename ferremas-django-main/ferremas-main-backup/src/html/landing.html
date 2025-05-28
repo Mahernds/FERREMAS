@@ -1,475 +1,214 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Taller Rayo Makween</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/landing.css" />
+  <meta charset="UTF-8">
+  <title>FERREMAS - Tu ferretería de confianza</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/landing.css">
+  <link rel="stylesheet" href="../css/ferremas-style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
 </head>
 
 <body>
-  <!-- Sticky navbar -->
   <nav class="navbar navbar-expand-md sticky-top">
     <div class="container-fluid justify-content-between">
-      <!-- left elements -->
       <a class="navbar-brand" href="landing.html">
-        <img class="logo-header" src="../../imagenes/logos empresa/logo-auto-negro.svg" width="30" height="30"
-          alt="logo empresa" />
+        <img class="logo-header" src="../../imagenes/logos empresa/logo.png" width="30" height="30" alt="FERREMAS logo">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="landing.html">Pagina Principal</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="trabajos.html">Nuestros Trabajos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="productos.html">Productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="nosotros.html">Nosotros</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="landing.html">Pagina Principal</a></li>
+          <li class="nav-item"><a class="nav-link" href="trabajos.html">Nuestros Trabajos</a></li>
+          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
         </ul>
       </div>
-      <!-- right elements -->
       <div class="d-flex ms-auto r-elements">
-        <!-- usuario -->
-        <a class="nav-link mx-2" href="session.html">
-          <img src="../../imagenes/logo-usuario.svg" alt="">
-        </a>
-        <!-- carrito compra -->
-        <a class="nav-link mx-2" href="carrito.html" data-bs-toggle="popover" data-bs-title="Carrito"
-          data-bs-content="">
-          <img src="../../imagenes/logo-shopping-cart.svg" alt="">
+        <a class="nav-link mx-2" href="session.html"><img src="../../imagenes/logo-usuario.svg" alt="Usuario"></a>
+        <a class="nav-link mx-2" href="carrito.html" data-bs-toggle="popover" data-bs-title="Carrito">
+          <img src="../../imagenes/logo-shopping-cart.svg" alt="Carrito">
           <div id="contadorCarrito">1</div>
         </a>
       </div>
     </div>
   </nav>
 
-  <main>
-    <!-- Bienvenida -->
-    <div class="container pt-3">
-      <div class="row justify-content-center">
-        <div class="col-12 text-center">
-          <h1>¡Todo para tu obra en un solo lugar!</h1>
-          <p class="lead">Bienvenido a FERREMAS, tu ferretería confiable con despacho a todo Chile.</p>
-        </div>
+  <main class="container mt-4">
+    <header class="text-center">
+      <h1>FERREMAS</h1>
+      <p class="lead">Todo para tu construcción, remodelación o proyecto. ¡Despacho a todo Chile!</p>
+    </header>
+
+    <section class="row text-center mt-4">
+      <div class="col-sm-4">
+        <h2>Variedad</h2>
+        <p>Más de 10.000 productos en herramientas, materiales de construcción, electricidad y más.</p>
       </div>
-      <div class="row mt-4">
-        <div class="col-sm-4 text-center">
-          <h2>Variedad</h2>
-          <p>Contamos con más de 10.000 productos para construcción, hogar, herramientas eléctricas, pinturas y más.</p>
-        </div>
-        <div class="col-sm-4 text-center">
-          <h2>Asesoría Profesional</h2>
-          <p>Un equipo de expertos te ayudará a encontrar lo que necesitas para cada etapa de tu proyecto.</p>
-        </div>
-        <div class="col-sm-4 text-center">
-          <h2>Despacho Rápido</h2>
-          <p>Envíos a domicilio y retiro en tienda. Trabajamos con las mejores empresas de encomienda del país.</p>
-        </div>
+      <div class="col-sm-4">
+        <h2>Asesoría Profesional</h2>
+        <p>Nuestros expertos te ayudan a elegir los mejores productos para tu obra o reparación.</p>
       </div>
-    </div>
-
-    <!-- seccion ultimos trabajos -->
-    <div class="container">
-      <div class="row justify-content-center align-items-center g-2">
-        <div class="col">
-          <h1>Nuestros últimos trabajos</h1>
-        </div>
+      <div class="col-sm-4">
+        <h2>Despacho Rápido</h2>
+        <p>Envíos a domicilio o retiro en tienda, con cobertura nacional.</p>
       </div>
-    </div>
+    </section>
 
-    <!-- carrusel con trabajos recientes -->
-    <div class="container-carrusel d-flex justify-content-center mt-3">
-      <div class="container d-flex justify-content-center">
-        <div class="row d-flex justify-content-center align-items-center g-2">
-          <div class="col c-container mt-0 d-flex justify-content-center">
-            <div id="carouselLandingPage" class="carousel slide d-flex justify-content-center">
-              <div class="carousel-indicators mb-0 mx-auto">
-                <button type="button" data-bs-target="#carouselLandingPage" data-bs-slide-to="0" class="active"
-                  aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselLandingPage" data-bs-slide-to="1"
-                  aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselLandingPage" data-bs-slide-to="2"
-                  aria-label="Slide 3"></button>
-              </div>
-              <div class="carousel-inner rounded-2">
-                <div class="carousel-item active">
-                  <a href="trabajo-1.html">
-                    <img src="./trabajos/imagen1.webp" class="d-block w-100" alt="..." />
-                    <!-- <img src="https://placehold.co/600x400" class="d-block w-100" alt="..."> -->
-                  </a>
-                  <div class="carousel-caption">
-                    <div class="job-title">
-                      <h5>Cambio de bateria</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="trabajo-2.html">
-                    <img src="./trabajos/imagen2.webp" class="d-block w-100" alt="..." />
-                  </a>
-                  <div class="carousel-caption">
-                    <div class="job-title">
-                      <h5>Trabajo 2</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <a href="trabajo-3.html">
-                    <img src="./trabajos/imagen3.webp" class="d-block w-100" alt="..." />
-                  </a>
-                  <div class="carousel-caption d-flex justify-content-center">
-                    <div class="job-title">
-                      <h5>Trabajo 3</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselLandingPage"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselLandingPage"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+    <section class="mt-5">
+      <h2 class="text-center">Proyectos Recientes</h2>
+      <div id="carouselLandingPage" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../imagenes/carrusel/Pintando el auto.png" class="d-block w-100" alt="Remodelación hogar">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>FERREMAS experto en pinturas</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../../imagenes/carrusel/pinturas.png" class="d-block w-100" alt="Construcción">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Pinturas que encontraras en FERREMAS</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../../imagenes/carrusel/herramientas.png" class="d-block w-100" alt="Herramientas eléctricas">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Herramientas eléctricas en acción</h5>
             </div>
           </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselLandingPage" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselLandingPage" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
       </div>
-    </div>
+    </section>
 
-    <!-- nuestras marcas -->
-    <div class="container mt-2">
-      <h1>Nuestras marcas</h1>
-      <div class="row justify-content-center align-items-center mx-auto">
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/icons8-toyota (1).svg" alt="Toyota" />
-          <p>Toyota</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/chevrolet (2).svg" alt="Chevrolet" />
-          <p>Chevrolet</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/kia.svg" alt="Kia" />
-          <p>Kia</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/nissan-6.svg" alt="Nissan" />
-          <p>Nissan</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/ford-8.svg" alt="Ford" />
-          <p>Ford</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/hyundai-motor-company.svg" alt="Hyundai" />
-          <p>Hyundai</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/bmw-8.svg" alt="BMW" />
-          <p>BMW</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/peugeot.svg" alt="Peugeot" />
-          <p>Peugeot</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/suzuki-logotipo.svg" alt="Suzuki" />
-          <p>Suzuki</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/mg.svg" alt="MG" />
-          <p>MG</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/chery-3.svg" alt="Chery" />
-          <p>Chery</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/mazda-2.svg" alt="Mazda" />
-          <p>Mazda</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/jac-seeklogo-5.svg" alt="JAC" />
-          <p>JAC</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/volkswagen.svg" alt="Volkswagen" />
-          <p>Volkswagen</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/logo-citroen-2022.svg" alt="Citroen" />
-          <p>Citroen</p>
-        </div>
-        <div class="caja-marca col-4 col-sm-3">
-          <img class="logo-marca-auto" src="../../imagenes/logos-marcas/mitsubishi-motors-new-logo.svg"
-            alt="Mitsubishi" />
-          <p>Mitsubishi</p>
-        </div>
+    <section class="mt-5 text-center">
+      <h2>Visítanos</h2>
+      <p>Estamos en Álvarez 2336, Viña del Mar</p>
+      <p>Horario: Lunes a Viernes de 8:00 a 18:00 - Sábado de 9:00 a 14:00</p>
+      
+      <div id="map" style="height: 400px; width: 100%; border-radius: 8px;"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ubicacionFerremas = [-33.033486823034096, -71.53326456627038];
+
+    const map = L.map('map').setView(ubicacionFerremas, 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const ferremasIcon = L.icon({
+      iconUrl: 'https://i.imgur.com/oixToxj.png',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -40]
+    });
+
+    L.marker(ubicacionFerremas, { icon: ferremasIcon }).addTo(map)
+      .bindPopup('<b>FERREMAS</b><br>Álvarez 2336, Viña del Mar')
+      .openPopup();
+
+    // Mostrar ubicación actual del usuario
+    map.locate({ setView: true, maxZoom: 16 });
+
+    map.on('locationfound', function (e) {
+      L.marker(e.latlng).addTo(map)
+        .bindPopup("Estás aquí").openPopup();
+
+    // Ruta
+      L.Routing.control({
+        waypoints: [
+          L.latLng(e.latitude, e.longitude),
+          L.latLng(ubicacionFerremas)
+        ],
+        routeWhileDragging: false,
+        createMarker: function() { return null; } // Oculta los marcadores por defecto de la ruta
+      }).addTo(map);
+    });
+
+    map.on('locationerror', function () {
+      alert("No pudimos encontrar tu ubicación. Asegúrate de tener la ubicación activada.");
+    });
+  });
+</script>
+
+
+
+
+      <!-- Botón de WhatsApp flotante con ícono -->
+<a href="https://wa.me/56912345678?text=Hola%20FERREMAS%2C%20quiero%20hacer%20una%20consulta" 
+   target="_blank" 
+   aria-label="Chatea por WhatsApp"
+   style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" 
+       alt="WhatsApp" 
+       width="60" 
+       height="60" 
+       style="background-color: #25D366; border-radius: 50%; padding: 10px;">
+</a>
+
+
+    <section class="mt-5">
+      <h2 class="text-center">¿Tienes dudas?</h2>
+      <div class="text-center">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#formContacto" aria-expanded="false" aria-controls="formContacto">
+          Contáctanos
+        </button>
       </div>
-    </div>
 
-    <hr />
-    <!-- servicios -->
-    <div>
-      <div class="container">
-        <div class="row justify-content-center align-items-center">
-          <div class="col">
-            <h1>Servicios al llegar</h1>
-          </div>
-        </div>
-        <div class="row justify-content-center align-items-center m-1 g-1">
-          <!-- card servicio -->
-          <div class="col-6 col-sm-4 p-0">
-            <div class="card servicio-card">
-              <img src="../../imagenes/servicios/cambio-rueda.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Cambio de aceite y filtro</h5>
-                <hr />
-                <p class="card-text">
-                  Mantenimiento regular del motor con cambio de aceite y
-                  filtro utilizando productos de calidad
-                </p>
-              </div>
+      <div class="collapse mt-3" id="formContacto">
+        <form class="needs-validation" novalidate>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="nombre">Nombre</label>
+              <input type="text" class="form-control" id="nombre" required>
+              <div class="invalid-feedback">Ingrese su nombre.</div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="correo">Correo</label>
+              <input type="email" class="form-control" id="correo" required>
+              <div class="invalid-feedback">Correo no válido.</div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" class="form-control" id="telefono" required>
+              <div class="invalid-feedback">Número requerido.</div>
             </div>
           </div>
-
-          <div class="col-6 col-sm-4 p-0">
-            <div class="card servicio-card">
-              <img src="../../imagenes/servicios/cambio-rueda.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Cambio de aceite y filtro</h5>
-                <hr />
-                <p class="card-text">
-                  Mantenimiento regular del motor con cambio de aceite y
-                  filtro utilizando productos de calidad
-                </p>
-              </div>
-            </div>
+          <div class="mb-3">
+            <label for="mensaje">Mensaje</label>
+            <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+            <div class="invalid-feedback">Por favor escribe un mensaje.</div>
           </div>
-
-          <div class="col-6 col-sm-4 p-0">
-            <div class="card servicio-card">
-              <img src="../../imagenes/servicios/cambio-rueda.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Cambio de aceite y filtro</h5>
-                <hr />
-                <p class="card-text">
-                  Mantenimiento regular del motor con cambio de aceite y
-                  filtro utilizando productos de calidad
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+          <button class="btn btn-primary" type="submit">Enviar</button>
+        </form>
       </div>
-    </div>
-
-    <hr />
-    <!-- encuentranos -->
-    <div>
-      <div class="container mt-2">
-        <div class="row justify-content-center align-items-center mx-auto">
-          <div class="col-12 col-sm-6">
-            <h1>Visitanos!</h1>
-            <div class="estado-taller">
-              <p class="mensaje-atencion"></p>
-              <div class="reloj">
-                <p>Hora Actual</p>
-                <p class="hora-actual"></p>
-              </div>
-              <div class="div-apertura">
-                <p class="mensaje-apertura"></p>
-                <p class="icono-apertura"></p>
-              </div>
-            </div>
-            <h2>Estamos ubicados en Duoc Vina</h2>
-            <p>Álvarez 2336, Viña del Mar, Chile</p>
-            <h2>Horario:</h2>
-            <p>Lunes a Viernes 8:00am - 6:00pm</p>
-            <p>Sabado 9:00am - 2:00pm</p>
-          </div>
-          <div class="col-12 col-sm-6">
-            <h1>
-              <div style="
-                    text-decoration: none;
-                    overflow: hidden;
-                    max-width: 100%;
-                    width: 500px;
-                    height: 500px;
-                  ">
-                <div id="embed-ded-map-canvas" style="height: 100%; width: 100%; max-width: 100%">
-                  <iframe style="height: 100%; width: 100%; border: 0" frameborder="0"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53513.23786019665!2d-71.54222208172544!3d-33.04126337779678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689de64d74fd4af%3A0x8004f381e9055a38!2sDuoc%20UC%3A%20Sede%20Vi%C3%B1a%20Del%20Mar!5e0!3m2!1ses!2scl!4v1714705707320!5m2!1ses!2scl"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                    ></iframe>
-                </div>
-              </div>
-            </h1>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- contacto -->
-    <!-- formulario -->
-    <div class="contacto-formulario">
-      <div class="container">
-        <h1>¿Dudas? ¡Escribenos!</h1>
-        <p>
-          Usa el siguiente formulario para contactarte con nosotros. Nos
-          demoramos menos de 1 hora en contestar durante nuestras horas de
-          oficina. Tambien puedes llamarnos al +56 9 XXXX XXXX
-        </p>
-
-        <div class="row justify-content-center align-items-center g-2">
-          <div class="col">
-            <form class="needs-validation">
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label for="inputNombreContacto">Nombre</label>
-                  <input type="text" class="form-control" id="inputNombreContacto" placeholder="Nombre" required />
-                  <div class="invalid-feedback">Ingrese su nombre</div>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="inputCorreoContacto">Correo</label>
-                  <input type="email" class="form-control" id="inputCorreoContacto" placeholder="Correo" required />
-                  <div class="invalid-feedback">Ingrese un correo valido</div>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="inputFonoContacto">Fono</label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend3">+569 </span>
-                    <input type="tel" class="form-control" id="inputFonoContacto" placeholder="..." required />
-                    <div class="invalid-feedback">
-                      Ingrese un numero de telefono valido
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group text-box">
-                <label for="inputTextoContacto" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="inputTextoContacto" rows="4" required></textarea>
-                <div class="invalid-feedback">Ingrese su mensaje</div>
-              </div>
-              <button type="submit" class="btn btn-primary mt-2">
-                Enviar
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   </main>
 
-  <footer>
-    <div class="container pt-2">
-      <div class="row justify-content-center align-items-center p-2">
-        <div class="logo-footer col-12 col-sm-6 d-flex justify-content-center mt-3 mb-1">
-          <img src="../../imagenes/logos empresa/logo-blanco.svg" alt="logo empresa" />
-        </div>
-        <div class="datos-contacto col-12 col-sm-6">
-          <p>Álvarez 2336, Viña del Mar, Chile</p>
-          <p>taller.rayo.mackeen@gmail.com</p>
-          <p>+56 9 XXXX XXXX</p>
-        </div>
-      </div>
-
-      <div class="row justify-content-center align-items-center mt-3">
-        <div class="col-12 col-sm-6 d-flex justify-content-center">
-          <div class="container"></div>
-        </div>
-        <div class="logos-redes col-12 col-sm-6 d-block">
-          <div class="logos-redes d-flex justify-content-center">
-            <img src="../../imagenes/logos redes sociales/facebook (1).svg" alt="imagen y link a Facebook" />
-            <img src="../../imagenes/logos redes sociales/instagram (1).svg" alt="imagen y link a Instagram" />
-            <img src="../../imagenes/logos redes sociales/linkedin (1).svg" alt="imagen y link a Linkedin" />
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center align-items-center g-2">
-        <div class="cp col">
-          <p><i>© 2024 Equipo 5</i></p>
-        </div>
-        <div class="click-qr cp col">
-          <a data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <p>Click aqui para codigo QR</p>
-          </a>
-        </div>
-      </div>
-    </div>
+  <footer class="mt-5 p-4 text-center">
+    <p>&copy; 2025 FERREMAS - Todos los derechos reservados</p>
+    <p>Álvarez 2336, Viña del Mar | +56 9 XXXX XXXX | contacto@ferremas.cl</p>
   </footer>
 
-  <!-- boton scroll-up -->
-  <div id="scrollBtn" title="Go to top">
-    <img src="../../imagenes/arrow-up.svg" alt="Up">
-  </div>
-
-  <!-- Modal de codigo QR -->
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Ok!"></button>
-        </div>
-        <div class="modal-body">
-          <!-- contenido del Modal -->
-          <img class="codigoqr" src="../../imagenes/qr-code.png" alt="imagen del codigo QR" />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- los script los cargamos al final -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  <script src="../scripts/jquery-3.2.1.min.js"></script>
-
-  <!-- contador del carrito -->
-  <script src="../scripts/contadorCarrito.js"></script>
-  <!-- reloj y calculo de apertura del taller -->
-  <script src="../scripts/estadoLocal.js"></script>
-  <!-- boton para subir al principio pagina -->
-  <script src="../scripts/scrollBtn.js"></script>
-  <!-- nav collapse al apretar en la pagina -->
-  <script src="../scripts/navCollapse.js"></script>
-  <!-- validacion del formulario -->
-  <script src="../scripts/validacionFormDudas.js"></script>
-
-  <!-- init de popover -->
-  <script>
-    const popoverTriggerList = document.querySelectorAll(
-      '[data-bs-toggle="popover"]'
-    );
-    const popoverList = [...popoverTriggerList].map(
-      (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
-    );
-  </script>
-
-  <script>
-    
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
