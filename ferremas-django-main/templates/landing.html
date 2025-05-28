@@ -26,10 +26,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item"><a class="nav-link" href="landing.html">Pagina Principal</a></li>
-          <li class="nav-item"><a class="nav-link" href="trabajos.html">Nuestros Trabajos</a></li>
-          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+          <a class="nav-link" href="{% url 'landing' %}">Página Principal</a>
+          <a class="nav-link" href="{% url 'trabajos' %}">Nuestros Trabajos</a>
+          <a class="nav-link" href="{% url 'productos' %}">Productos</a>
+          <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
         </ul>
       </div>
       <div class="d-flex ms-auto r-elements">
