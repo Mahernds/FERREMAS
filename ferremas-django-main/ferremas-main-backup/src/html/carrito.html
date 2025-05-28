@@ -100,46 +100,49 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../scripts/carrito.js"></script>
   <script src="../scripts/contadorCarrito.js"></script>
 
-  <!-- PayPal -->
-
+  <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=AS8Na8w_DNRPt8CHQpKhHh_qIKKMXaAQ7Q27xRG-aACy2D7ZyxKQB6I9QsiDvBPxMrsJ_cH3r-ayMmWp&currency=USD"></script>
-  
-  <div id="paypal-button-container"></div>
 
-  <script> 
+  <!-- Botón PayPal -->
+  <script>
     paypal.Buttons({
-        style: {
-            color: 'blue',
-            shape: 'pill',
-            label: 'pay',
-        },
-        createOrder: function(data, actions){
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: (parseFloat(document.getElementById('carrito-total').textContent.replace(/\./g, '').replace(',', '.')) / 938).toFixed(2)
-                    }
-                }]
-            });
-        },
-
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(detalles) {
-                console.log(detalles);
-                window.location.href = 'gracias.html';
-            });
-        },
-
-        onCancel: function(data, actions) {
-            alert('Pago cancelado');
-        },
+      style: {
+        color: 'blue',
+        shape: 'pill',
+        label: 'pay',
+      },
+      createOrder: function(data, actions) {
+        const totalCLP = parseFloat(document.getElementById('carrito-total').textContent.replace(/\./g, '').replace(',', '.'));
+        const totalUSD = (totalCLP / 938).toFixed(2);
+        localStorage.setItem('totalPagadoUSD', totalUSD);
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: totalUSD
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(detalles) {
+          console.log(detalles);
+          localStorage.setItem('transaccionID', detalles.id || 'N/A');
+          window.location.href = 'gracias.html';
+        });
+      },
+      onCancel: function(data) {
+        alert('Pago cancelado');
+      },
+      onError: function(err) {
+        console.error('Error al procesar el pago:', err);
+        alert('Error al procesar el pago.');
+      }
     }).render('#paypal-button-container');
-    
   </script>
-
 </body>
 </html>
