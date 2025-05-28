@@ -60,44 +60,61 @@
       <div class="d-flex justify-content-end">
         <h4>Total: $<span id="carrito-total">0</span></h4>
       </div>
-      <div class="d-flex justify-content-end mt-3">
+
+      <!-- Formulario de envío -->
+      <div class="mt-5">
+        <h4>Información de envío</h4>
+        <form id="form-envio" class="row g-3 needs-validation" novalidate>
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="nombre" required>
+          </div>
+          <div class="col-md-6">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="correo" required>
+          </div>
+          <div class="col-md-6">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="telefono" required maxlength="9" pattern="[0-9]{9}"
+              inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Ej: 912345678">
+            <div class="invalid-feedback">Debe ingresar solo 9 dígitos numéricos.</div>
+          </div>
+          <div class="col-md-4">
+            <label for="region" class="form-label">Región</label>
+            <select id="region" class="form-select" required>
+              <option value="">Seleccione una región</option>
+            </select>
+            <div class="invalid-feedback">Seleccione una región.</div>
+          </div>
+          <div class="col-md-4">
+            <label for="comuna" class="form-label">Comuna</label>
+            <select id="comuna" class="form-select" required>
+              <option value="">Seleccione una comuna</option>
+            </select>
+            <div class="invalid-feedback">Seleccione una comuna.</div>
+          </div>
+          <div class="col-md-4">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" required>
+            <div class="invalid-feedback">Ingrese su dirección completa.</div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Continuar con el pago</button>
+          </div>
+        </form>
+        <div id="paypal-button-container" class="mt-4" style="display: none;"></div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4">
         <a href="productos.html" class="btn btn-secondary me-2">Seguir comprando</a>
         <button id="btn-vaciar-carrito" class="btn btn-danger me-2">Vaciar carrito</button>
-        <div id="paypal-button-container"></div>
       </div>
     </div>
   </main>
 
-  <footer class="mt-5">
-    <div class="container pt-2">
-      <div class="row justify-content-center align-items-center p-2">
-        <div class="logo-footer col-12 col-sm-6 d-flex justify-content-center mt-3 mb-1">
-          <img src="../../imagenes/logos empresa/logo-blanco.svg" alt="logo empresa" />
-        </div>
-        <div class="datos-contacto col-12 col-sm-6">
-          <p>Álvarez 2336, Viña del Mar, Chile</p>
-          <p>taller.rayo.mackeen@gmail.com</p>
-          <p>+56 9 XXXX XXXX</p>
-        </div>
-      </div>
-      <div class="row justify-content-center align-items-center mt-3">
-        <div class="col-12 col-sm-6 d-flex justify-content-center">
-          <div class="container"></div>
-        </div>
-        <div class="logos-redes col-12 col-sm-6 d-block">
-          <div class="logos-redes d-flex justify-content-center">
-            <img src="../../imagenes/logos redes sociales/facebook (1).svg" alt="imagen y link a Facebook" />
-            <img src="../../imagenes/logos redes sociales/instagram (1).svg" alt="imagen y link a Instagram" />
-            <img src="../../imagenes/logos redes sociales/linkedin (1).svg" alt="imagen y link a Linkedin" />
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center align-items-center g-2">
-        <div class="cp col">
-          <p><i>© 2024 Equipo 5</i></p>
-        </div>
-      </div>
-    </div>
+  <footer class="mt-5 p-4 text-center">
+    <p>&copy; 2025 FERREMAS - Todos los derechos reservados</p>
+    <p>Álvarez 2336, Viña del Mar | +56 9 XXXX XXXX | contacto@ferremas.cl</p>
   </footer>
 
   <!-- Scripts -->
@@ -105,32 +122,86 @@
   <script src="../scripts/carrito.js"></script>
   <script src="../scripts/contadorCarrito.js"></script>
 
-  <!-- PayPal SDK -->
+  <script>
+    const regionesYcomunas = {
+      "Región de Valparaíso": ["Viña del Mar", "Valparaíso", "Quilpué", "Villa Alemana", "Concón", "Quintero", "San Antonio"],
+      "Región Metropolitana": ["Santiago", "Puente Alto", "Maipú", "Las Condes", "La Florida", "Ñuñoa", "San Bernardo"],
+      "Región del Biobío": ["Concepción", "Talcahuano", "Coronel", "San Pedro de la Paz"],
+      "Región de La Araucanía": ["Temuco", "Padre Las Casas", "Angol"],
+      "Región de Coquimbo": ["La Serena", "Coquimbo", "Ovalle"],
+      "Región del Maule": ["Talca", "Curicó", "Linares"],
+      "Región de Los Lagos": ["Puerto Montt", "Osorno", "Castro"],
+      "Región de Antofagasta": ["Antofagasta", "Calama", "Tocopilla"],
+      "Región de Tarapacá": ["Iquique", "Alto Hospicio"],
+      "Región de Atacama": ["Copiapó", "Vallenar"],
+      "Región de O’Higgins": ["Rancagua", "San Fernando", "Rengo"],
+      "Región de Los Ríos": ["Valdivia", "La Unión"],
+      "Región de Aysén": ["Coyhaique"],
+      "Región de Magallanes": ["Punta Arenas"],
+      "Región de Arica y Parinacota": ["Arica"]
+    };
+
+    const regionSelect = document.getElementById("region");
+    const comunaSelect = document.getElementById("comuna");
+
+    for (const region in regionesYcomunas) {
+      const option = document.createElement("option");
+      option.value = region;
+      option.textContent = region;
+      regionSelect.appendChild(option);
+    }
+
+    regionSelect.addEventListener("change", function () {
+      comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
+      const comunas = regionesYcomunas[this.value] || [];
+      comunas.forEach(comuna => {
+        const option = document.createElement("option");
+        option.value = comuna;
+        option.textContent = comuna;
+        comunaSelect.appendChild(option);
+      });
+    });
+  </script>
+
+  <script>
+    const formEnvio = document.getElementById('form-envio');
+    const paypalContainer = document.getElementById('paypal-button-container');
+
+    formEnvio.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (!formEnvio.checkValidity()) {
+        formEnvio.classList.add('was-validated');
+        return;
+      }
+
+      const datosEnvio = {
+        nombre: document.getElementById('nombre').value,
+        correo: document.getElementById('correo').value,
+        telefono: document.getElementById('telefono').value,
+        direccion: document.getElementById('direccion').value,
+        comuna: document.getElementById('comuna').value,
+        region: document.getElementById('region').value
+      };
+      localStorage.setItem('datosEnvio', JSON.stringify(datosEnvio));
+      paypalContainer.style.display = 'block';
+      formEnvio.querySelector('button[type="submit"]').disabled = true;
+      formEnvio.classList.add('was-validated');
+    });
+  </script>
+
   <script src="https://www.paypal.com/sdk/js?client-id=AS8Na8w_DNRPt8CHQpKhHh_qIKKMXaAQ7Q27xRG-aACy2D7ZyxKQB6I9QsiDvBPxMrsJ_cH3r-ayMmWp&currency=USD"></script>
 
-  <!-- Botón PayPal -->
   <script>
     paypal.Buttons({
-      style: {
-        color: 'blue',
-        shape: 'pill',
-        label: 'pay',
-      },
+      style: { color: 'blue', shape: 'pill', label: 'pay' },
       createOrder: function(data, actions) {
         const totalCLP = parseFloat(document.getElementById('carrito-total').textContent.replace(/\./g, '').replace(',', '.'));
         const totalUSD = (totalCLP / 938).toFixed(2);
         localStorage.setItem('totalPagadoUSD', totalUSD);
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: totalUSD
-            }
-          }]
-        });
+        return actions.order.create({ purchase_units: [{ amount: { value: totalUSD } }] });
       },
       onApprove: function(data, actions) {
         return actions.order.capture().then(function(detalles) {
-          console.log(detalles);
           localStorage.setItem('transaccionID', detalles.id || 'N/A');
           window.location.href = 'gracias.html';
         });
