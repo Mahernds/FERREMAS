@@ -1,0 +1,48 @@
+  <!-- Sticky navbar -->
+  <nav class="navbar navbar-expand-md sticky-top">
+    <div class="container-fluid justify-content-between">
+      <!-- left elements -->
+      <a class="navbar-brand" href="landing.html">
+        <img class="logo-header" src="../../imagenes/logos empresa/logo-auto-negro.svg" width="30" height="30"
+          alt="logo empresa" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="landing.html">Pagina Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabajos.html">Nuestros Trabajos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="productos.html">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="nosotros.html">Nosotros</a>
+          </li>
+        </ul>
+      </div>
+      <!-- right elements -->
+      <div class="d-flex ms-auto r-elements">
+        <!-- usuario -->
+        <a class="nav-link mx-2" href="session.html">
+          <img src="../../imagenes/logo-usuario.svg" alt="">
+        </a>
+        <!-- carrito compra -->
+        <a class="nav-link mx-2" href="#" data-bs-toggle="popover" data-bs-title="Carrito"
+          data-bs-content="Por implementar! Aca iria la informacion del carrito y un boton para confirmar compra">
+          <img src="../../imagenes/logo-shopping-cart.svg" alt="">
+          <div id="contadorCarrito">1</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+<!-- nav collapse al apretar en la pagina -->
+<script src="../scripts/navCollapse.js"></script>
+<!-- contador del carrito -->
+<script src="../scripts/contadorCarrito.js"></script>

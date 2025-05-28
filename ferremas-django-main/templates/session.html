@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>FERREMÁS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md sticky-top">
+    <div class="container-fluid justify-content-between">
+      <a class="navbar-brand" href="landing.html">
+        <img class="logo-header" src="../../imagenes/logos empresa/logo.png" width="30" height="30"
+          alt="logo empresa" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="landing.html">Pagina Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabajos.html">Nuestros Proyectos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="productos.html">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="nosotros.html">Nosotros</a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex ms-auto r-elements">
+        <a class="nav-link mx-2" href="session.html">
+          <img src="../../imagenes/logo-usuario.svg" alt="">
+        </a>
+        <a class="nav-link mx-2" href="carrito.html" data-bs-toggle="popover" data-bs-title="Carrito"
+          data-bs-content="Aquí puedes ver los productos agregados">
+          <img src="../../imagenes/logo-shopping-cart.svg" alt="">
+          <div id="contadorCarrito">1</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container inicio-sesion p-3">
+    <div class="row justify-content-center align-items-center g-2">
+      <h1>Iniciar Sesión</h1>
+    </div>
+
+    <div class="row justify-content-center align-items-center g-2">
+      <div class="col">
+        <p>¿No tienes cuenta?
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">¡Haz clic aquí!</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center align-items-center g-2">
+      <form class="form-validation" novalidate>
+        <div class="form-group">
+          <label for="correoInicioSesion">Correo</label>
+          <input type="email" class="form-control" id="correoInicioSesion" placeholder="Ingrese su correo" required />
+          <div class="invalid-feedback">Ingrese un correo válido</div>
+        </div>
+        <div class="form-group">
+          <label for="contrasennaInicioSession">Contraseña</label>
+          <input type="password" class="form-control" id="contrasennaInicioSession" placeholder="Ingrese su contraseña"
+            required />
+          <div class="invalid-feedback">Debe ingresar su contraseña</div>
+        </div>
+        <br>
+        <a href="#">¿Olvidó su contraseña?</a>
+        <br>
+        <button type="submit" class="btn btn-primary d-block mx-auto mt-2">
+          Continuar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white mt-5 p-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <img src="../../imagenes/logos empresa/logo-blanco.svg" alt="logo empresa" />
+          <p>Av. Las Ferreterías 1234, Viña del Mar, Chile</p>
+          <p>contacto@ferremas.cl</p>
+          <p>+56 9 1234 5678</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <p><i>© 2024 FERREMÁS</i></p>
+          <p><a data-bs-toggle="modal" data-bs-target="#exampleModal" class="text-white">Ver QR de registro</a></p>
+          <div class="d-flex justify-content-md-end gap-2">
+            <img src="../../imagenes/logos redes sociales/facebook (1).svg" alt="Facebook" />
+            <img src="../../imagenes/logos redes sociales/instagram (1).svg" alt="Instagram" />
+            <img src="../../imagenes/logos redes sociales/linkedin (1).svg" alt="Linkedin" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Cuenta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-validation" novalidate>
+            <div class="form-group">
+              <label for="nombreNuevaCuenta">Nombre</label>
+              <input type="text" class="form-control" id="nombreNuevaCuenta" placeholder="Ingrese su nombre" required />
+              <div class="invalid-feedback">Debe ingresar su nombre</div>
+            </div>
+            <div class="form-group">
+              <label for="correoRegistro">Correo</label>
+              <input type="email" class="form-control" id="correoRegistro" placeholder="Ingrese su correo" required />
+              <div class="invalid-feedback">Ingrese un correo válido</div>
+            </div>
+            <div class="form-group">
+              <label for="contrasennaRegistro">Contraseña</label>
+              <input type="password" class="form-control" id="contrasennaRegistro" placeholder="Ingrese su contraseña" required />
+              <div class="invalid-feedback">Debe ingresar su contraseña</div>
+            </div>
+            <button type="submit" class="btn btn-primary d-block mx-auto mt-2">Crear</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      window.addEventListener("load", function () {
+        var forms = document.getElementsByClassName("form-validation");
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener("submit", function (event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add("was-validated");
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="../scripts/navCollapse.js"></script>
+  <script src="../scripts/contadorCarrito.js"></script>
+</body>
+
+</html>

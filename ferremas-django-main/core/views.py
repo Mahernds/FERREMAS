@@ -1,8 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.template import loader
-
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import Group, User
 
@@ -10,7 +8,6 @@ from . import models
 from .forms import ClienteForm, TrabajadorForm, UserForm, ProductoForm
 from .decorators import unauthenticated_user, allowed_users
 from .models import Trabajador, Producto
-
 
 def index(request):
     productos_destacados = Producto.objects.filter(estado="Disponible").order_by('-fecha_ingreso')[:3]
@@ -21,12 +18,10 @@ def index(request):
         "producto_destacado": producto_destacado,
         "otros_productos": otros_productos
     }
-    return render(request, 'index.html', context)
-
+    return render(request, 'landing.html', context)
 
 def nosotros(request):
     return render(request, 'nosotros.html')
-
 
 @unauthenticated_user
 def login(request):
@@ -66,18 +61,16 @@ def login(request):
             else:
                 messages.error(request, "Correo o contraseña incorrectos.")
 
-    return render(request, 'login.html', context)
-
+    return render(request, 'session.html', context)
 
 def user_logout(request):
     logout(request)
     return redirect('/')
 
-
 def auth_error(request):
     if not request.user.groups.exists():
         return redirect("/")
-    
+
     group = request.user.groups.all()[0].name
 
     if group == "administrador_ferreteria":
@@ -88,7 +81,6 @@ def auth_error(request):
         return redirect("/admin_trabajador")
 
     return redirect("/")
-
 
 def productos(request):
     productos_disponibles = Producto.objects.filter(estado="Disponible")
@@ -102,17 +94,13 @@ def productos(request):
 
     return render(request, 'productos.html', {"productos": productos_disponibles})
 
-
 def ver_producto(request, pk):
     producto = Producto.objects.get(id=pk)
-    return render(request, "ver-producto.html", {"producto": producto})
+    return render(request, "trabajos/trabajo-{}.html".format(pk), {"producto": producto})
 
 def trabajos(request):
     return render(request, "trabajos.html")
 
-# ---------------------------
-# ADMIN FERRETERÍA
-# ---------------------------
 @allowed_users(allowed_roles=['administrador_ferreteria'])
 def admin_ferreteria(request):
     context = {
@@ -120,7 +108,6 @@ def admin_ferreteria(request):
         "productos": Producto.objects.all(),
     }
     return render(request, "admin-ferreteria.html", context)
-
 
 @allowed_users(allowed_roles=['administrador_ferreteria'])
 def admin_ferreteria_crear_trabajador(request):
@@ -152,7 +139,6 @@ def admin_ferreteria_crear_trabajador(request):
     context = {"user_form": user_form, 'trabajador_form': trabajador_form}
     return render(request, "admin-ferreteria-crear-trabajador.html", context)
 
-
 @allowed_users(allowed_roles=['administrador_ferreteria'])
 def admin_ferreteria_eliminar_trabajador(request, pk):
     trabajador = Trabajador.objects.get(rut=pk)
@@ -165,16 +151,11 @@ def admin_ferreteria_eliminar_trabajador(request, pk):
 
     return render(request, "admin-ferreteria-eliminar-trabajador.html", {"trabajador": trabajador})
 
-
-# ---------------------------
-# ADMIN TRABAJADOR
-# ---------------------------
 @allowed_users(allowed_roles=['trabajador'])
 def admin_trabajador(request):
     trabajador = Trabajador.objects.get(user=request.user)
     productos = Producto.objects.filter(trabajador=trabajador)
     return render(request, "admin-trabajador.html", {"productos": productos})
-
 
 @allowed_users(allowed_roles=['trabajador'])
 def admin_trabajador_nuevo_producto(request):
@@ -191,7 +172,6 @@ def admin_trabajador_nuevo_producto(request):
 
     return render(request, "admin-trabajador-nuevo-producto.html", {"form": form})
 
-
 @allowed_users(allowed_roles=['trabajador'])
 def admin_trabajador_modificar_producto(request, pk):
     producto = Producto.objects.get(id=pk)
@@ -204,7 +184,6 @@ def admin_trabajador_modificar_producto(request, pk):
             return redirect("/admin_trabajador")
 
     return render(request, "admin-trabajador-nuevo-producto.html", {"form": form})
-
 
 @allowed_users(allowed_roles=['trabajador'])
 def admin_trabajador_eliminar_producto(request, pk):
