@@ -1,0 +1,11 @@
+{% extends "navbar-admin.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h4>¿Deseas eliminar el producto <strong>{{ producto.nombre }}</strong>?</h4>
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'admin_trabajador' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
