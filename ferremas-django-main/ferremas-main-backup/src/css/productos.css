@@ -23,6 +23,12 @@ p {
   object-fit: cover; 
 }
 
+.logo-header {
+  height: 60px;
+  width: auto;
+  filter: none;
+}
+
 .card-title {
   color: #333;
   font-size: 1.2em;

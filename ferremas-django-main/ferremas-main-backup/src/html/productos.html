@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="UTF-8" />
-  <title>Taller Rayo Makween</title>
+  <title>FERREMÁS - Productos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -13,43 +12,27 @@
 </head>
 
 <body>
-  <!-- Sticky navbar -->
   <nav class="navbar navbar-expand-md sticky-top">
     <div class="container-fluid justify-content-between">
-      <!-- left elements -->
       <a class="navbar-brand" href="landing.html">
-        <img class="logo-header" src="../../imagenes/logos empresa/logo-auto-negro.svg" width="30" height="30"
-          alt="logo empresa" />
+        <img class="logo-header" src="../../imagenes/logos empresa/logo.png" width="30" height="30" alt="logo" />
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="landing.html">Pagina Principal</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="trabajos.html">Nuestros Trabajos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="productos.html">Productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="nosotros.html">Nosotros</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="landing.html">Pagina Principal</a></li>
+          <li class="nav-item"><a class="nav-link" href="trabajos.html">Nuestros Trabajos</a></li>
+          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
         </ul>
       </div>
-      <!-- right elements -->
       <div class="d-flex ms-auto r-elements">
-        <!-- usuario -->
         <a class="nav-link mx-2" href="session.html">
           <img src="../../imagenes/logo-usuario.svg" alt="">
         </a>
-        <!-- carrito compra -->
-        <a class="nav-link mx-2" href="carrito.html" data-bs-toggle="popover" data-bs-title="Carrito"
-          data-bs-content="aquí puedes ver los productos que has agregado a tu carrito">
+        <a class="nav-link mx-2" href="carrito.html">
           <img src="../../imagenes/logo-shopping-cart.svg" alt="">
           <div id="contadorCarrito" style="display:none;">0</div>
         </a>
@@ -59,201 +42,71 @@
 
   <main>
     <div class="container-fluid">
-      <div class="row justify-content-center align-items-center g-2">
+      <div class="row justify-content-center">
         <div class="col">
-          <center>
-            <h1>Nuestros Productos</h1>
-          </center>
+          <center><h1>Nuestros Productos</h1></center>
         </div>
       </div>
     </div>
+
     <div class="producto-card">
       <div class="container-fluid">
-        <div class="row justify-content-center align-items-center g-2 d-flex flex-wrap">
-
-          <!-- producto 1 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card card-producto p-3" style="width: 18rem;">
-              <img src="https://www.mibuy.cl/cdn/shop/products/open-uri20220228-4027-ttn88x_fbae9acd-1b6f-448e-9fe3-19d5834a3a7f_800x.jpg?v=1659975761" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Castrol GTX</h5>
-                <p class="card-text">Aceite de motor semisintético de alta calidad</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 2 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaScGI7xcZoDc7X2rWVYsVDpTNt5IMOmEKBQ&s" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Bosch</h5>
-                <p class="card-text">Filtro de aceite de larga duración</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 3 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-2nVQ5LlqHP-ULBdQ6qAdAi9SD0sFVOFDA&s" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Mann-Filter</h5>
-                <p class="card-text">Filtro de aire de alto rendimiento</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 4 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqUa4dFUHt0VhZPmKRdXIbgpbB_bPov5fqIA&s" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">NGK</h5>
-                <p class="card-text">Bujía de encendido de platino</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 5 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://www.magnumperformance.es/wp-content/uploads/2020/04/Brembo_GTR_02.jpg" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Brembo</h5>
-                <p class="card-text">Juego de frenos delanteros</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 6 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNa-DXQZ_zmmTXziS1BL0izUw12_8JjNAiHOCXrlWIuw&s" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Michelin</h5>
-                <p class="card-text">Neumáticos de verano de alto rendimiento</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 7 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://www.lubricentrojm.cl/wp-content/uploads/2017/09/Prestone-concentrado-copia.png" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Prestone</h5>
-                <p class="card-text">Líquido refrigerante de larga duración</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- producto 8 -->
-          <div class="col-6 col-md-4 p-1">
-            <div class="card  p-3" style="width: 18rem;">
-              <img src="https://ae01.alicdn.com/kf/Sc19d4d7457824ed3a7f36a9fc183dfebf/Correa-ORIGINAL-para-CF-ATV-UTV-MOTO-450-500-520-550-600-n-mero-de-pieza.jpg_.webp" class="card-img-top" alt="">
-              <hr>
-              <div class="card-body">
-                <h5 class="card-title">Gates</h5>
-                <p class="card-text">Correa de transmisión de alta resistencia</p>
-                <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
-              </div>
-            </div>
-          </div>
-
+        <div class="row justify-content-center align-items-center g-2 d-flex flex-wrap" id="contenedor-productos">
+          <!-- Aquí se insertarán las tarjetas dinámicamente -->
         </div>
       </div>
     </div>
   </main>
 
-  <!-- los script los cargamos al final -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="../scripts/jquery-3.2.1.min.js"></script>
-  <!-- nav collapse al apretar en la pagina -->
   <script src="../scripts/navCollapse.js"></script>
-  <!-- carrito y contador del carrito -->
   <script src="../scripts/carrito.js"></script>
   <script src="../scripts/contadorCarrito.js"></script>
-  <!-- lógica para agregar productos al carrito -->
+
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Define los productos en el mismo orden que aparecen en el HTML
+    document.addEventListener('DOMContentLoaded', function () {
       const productos = [
-        {
-          id: 1,
-          nombre: "Castrol GTX",
-          precio: 15000,
-          imagen: "https://www.mibuy.cl/cdn/shop/products/open-uri20220228-4027-ttn88x_fbae9acd-1b6f-448e-9fe3-19d5834a3a7f_800x.jpg?v=1659975761"
-        },
-        {
-          id: 2,
-          nombre: "Bosch",
-          precio: 8000,
-          imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaScGI7xcZoDc7X2rWVYsVDpTNt5IMOmEKBQ&s"
-        },
-        {
-          id: 3,
-          nombre: "Mann-Filter",
-          precio: 9000,
-          imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-2nVQ5LlqHP-ULBdQ6qAdAi9SD0sFVOFDA&s"
-        },
-        {
-          id: 4,
-          nombre: "NGK",
-          precio: 7000,
-          imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqUa4dFUHt0VhZPmKRdXIbgpbB_bPov5fqIA&s"
-        },
-        {
-          id: 5,
-          nombre: "Brembo",
-          precio: 25000,
-          imagen: "https://www.magnumperformance.es/wp-content/uploads/2020/04/Brembo_GTR_02.jpg"
-        },
-        {
-          id: 6,
-          nombre: "Michelin",
-          precio: 60000,
-          imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNa-DXQZ_zmmTXziS1BL0izUw12_8JjNAiHOCXrlWIuw&s"
-        },
-        {
-          id: 7,
-          nombre: "Prestone",
-          precio: 12000,
-          imagen: "https://www.lubricentrojm.cl/wp-content/uploads/2017/09/Prestone-concentrado-copia.png"
-        },
-        {
-          id: 8,
-          nombre: "Gates",
-          precio: 18000,
-          imagen: "https://ae01.alicdn.com/kf/Sc19d4d7457824ed3a7f36a9fc183dfebf/Correa-ORIGINAL-para-CF-ATV-UTV-MOTO-450-500-520-550-600-n-mero-de-pieza.jpg_.webp"
-        }
+        { id: 1, nombre: "Martillo", precio: 4500, imagen: "https://ferretek.cl/wp-content/uploads/2022/05/martillo-una.jpg" },
+        { id: 2, nombre: "Destornilladores", precio: 2500, imagen: "https://cdn.shopify.com/s/files/1/0553/5701/7966/products/destornilladores.jpg?v=1659975761" },
+        { id: 3, nombre: "Llaves Ajustables", precio: 5200, imagen: "https://www.insumoselectricos.cl/wp-content/uploads/2023/07/llaves-ajustables.jpg" },
+        { id: 4, nombre: "Taladro Inalámbrico", precio: 35000, imagen: "https://maestropvc.cl/wp-content/uploads/2023/04/taladro-inalambrico-bosch.jpg" },
+        { id: 5, nombre: "Sierra Circular", precio: 42000, imagen: "https://www.toolstore.cl/image/cache/catalog/productos/electricas/sierras/sierras%20circulares/sierras-circulares-600x600.jpg" },
+        { id: 6, nombre: "Lijadora Orbital", precio: 28000, imagen: "https://sodimac.falabella.com/sodimac-cl/product/111532993/Lijadora-Orbital-230-W-Black---Decker/111532993" },
+        { id: 7, nombre: "Cemento Melón", precio: 7000, imagen: "https://maestranza.cl/wp-content/uploads/2023/04/cemento-melon.jpg" },
+        { id: 8, nombre: "Arena Fina", precio: 5000, imagen: "https://materialesdecercania.cl/images/productos/arena-fina.jpg" },
+        { id: 9, nombre: "Ladrillo Sólido", precio: 300, imagen: "https://ferrex.cl/img/ladrillo-solido-rojo.jpg" },
+        { id: 10, nombre: "Pintura Látex", precio: 12000, imagen: "https://ferremas.cl/uploads/productos/pintura-latex.jpg" },
+        { id: 11, nombre: "Casco de Seguridad", precio: 9000, imagen: "https://ferremas.cl/uploads/productos/casco-seguridad.jpg" }
       ];
 
-      // Selecciona todos los botones "Agregar"
+      const contenedor = document.getElementById('contenedor-productos');
+
+      productos.forEach((producto, idx) => {
+        const col = document.createElement('div');
+        col.className = 'col-6 col-md-4 p-1';
+
+        col.innerHTML = `
+          <div class="card card-producto p-3" style="width: 18rem;">
+            <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
+            <hr>
+            <div class="card-body">
+              <h5 class="card-title">${producto.nombre}</h5>
+              <p class="card-text">${producto.nombre} de excelente calidad</p>
+              <button type="button" class="btn btn-primary btn-agregar-producto">Agregar</button>
+            </div>
+          </div>
+        `;
+        contenedor.appendChild(col);
+      });
+
       const botones = document.querySelectorAll('.btn-agregar-producto');
       botones.forEach((btn, idx) => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
           agregarAlCarrito(productos[idx]);
         });
       });
     });
   </script>
 </body>
-
 </html>
