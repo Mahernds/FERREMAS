@@ -121,7 +121,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: document.getElementById('carrito-total').textContent
+                        value: (parseFloat(document.getElementById('carrito-total').textContent.replace(/\./g, '').replace(',', '.')) / 938).toFixed(2)
                     }
                 }]
             });
@@ -130,6 +130,7 @@
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(detalles) {
                 console.log(detalles);
+                window.location.href = 'gracias.html';
             });
         },
 
@@ -137,6 +138,7 @@
             alert('Pago cancelado');
         },
     }).render('#paypal-button-container');
+    
   </script>
 
 </body>
