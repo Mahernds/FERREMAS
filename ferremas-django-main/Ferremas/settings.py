@@ -50,7 +50,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tallerRayoMakeen.urls'
+
+ROOT_URLCONF = 'Ferremas.urls'
 
 TEMPLATES = [
     {
@@ -69,8 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tallerRayoMakeen.wsgi.application'
-
+WSGI_APPLICATION = 'Ferremas.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

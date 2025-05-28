@@ -1,0 +1,20 @@
+{% extends "navbar-admin.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Productos publicados</h2>
+  <a href="{% url 'admin_trabajador_nuevo_producto' %}" class="btn btn-primary mb-3">+ Nuevo Producto</a>
+  <ul class="list-group">
+    {% for p in productos %}
+    <li class="list-group-item d-flex justify-content-between">
+      {{ p.nombre }} - {{ p.marca }}
+      <span>
+        <a href="{% url 'admin_trabajador_modificar_producto' p.id %}" class="btn btn-warning btn-sm">Editar</a>
+        <a href="{% url 'admin_trabajador_eliminar_producto' p.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+      </span>
+    </li>
+    {% empty %}
+    <li class="list-group-item">No hay productos registrados.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
