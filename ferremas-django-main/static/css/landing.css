@@ -1,0 +1,88 @@
+:root {
+  --ferremas-rojo: #c62828;
+  --ferremas-gris: #424242;
+  --ferremas-amarillo: #ffeb3b;
+  --ferremas-fondo: #f9f9f9;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--ferremas-fondo);
+  color: var(--ferremas-gris);
+}
+
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+  height: 50px;
+}
+
+.nav-link {
+  font-weight: bold;
+  color: var(--ferremas-gris);
+}
+
+.nav-link:hover {
+  color: var(--ferremas-rojo);
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--ferremas-rojo);
+  text-shadow: 1px 1px 1px #888;
+}
+
+h2 {
+  color: var(--ferremas-gris);
+  font-weight: bold;
+}
+
+.carousel-item img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 400px;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.btn-primary {
+  background-color: var(--ferremas-rojo);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #b71c1c;
+}
+
+footer {
+  background-color: var(--ferremas-gris);
+  color: white;
+}
+
+.mapa iframe {
+  border-radius: 10px;
+}
+
+form label {
+  font-weight: bold;
+  color: var(--ferremas-gris);
+}
+
+input.form-control,
+textarea.form-control {
+  border-radius: 0;
+  border: 1px solid #ccc;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--ferremas-rojo);
+  border-radius: 50%;
+}
