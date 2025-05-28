@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 
-ROOT_URLCONF = 'Ferremas.urls'
+
 
 TEMPLATES = [
     {
@@ -70,7 +70,9 @@ TEMPLATES = [
     },
 ]
 
+ROOT_URLCONF = 'Ferremas.urls'
 WSGI_APPLICATION = 'Ferremas.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

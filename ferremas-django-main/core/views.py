@@ -1,14 +1,13 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import Group, User
 
-from . import models
 from .forms import ClienteForm, TrabajadorForm, UserForm, ProductoForm
 from .decorators import unauthenticated_user, allowed_users
 from .models import Trabajador, Producto
 
+# Página principal
 def index(request):
     productos_destacados = Producto.objects.filter(estado="Disponible").order_by('-fecha_ingreso')[:3]
     producto_destacado = productos_destacados[0] if productos_destacados else None
@@ -20,9 +19,24 @@ def index(request):
     }
     return render(request, 'landing.html', context)
 
+# Vistas generales
+
 def nosotros(request):
     return render(request, 'nosotros.html')
 
+def landing(request):
+    return render(request, 'landing.html')
+
+def gracias(request):
+    return render(request, 'gracias.html')
+
+def carrito(request):
+    return render(request, 'carrito.html')
+
+def session(request):
+    return render(request, 'session.html')
+
+# Autenticación
 @unauthenticated_user
 def login(request):
     cliente_form = ClienteForm()
@@ -75,12 +89,14 @@ def auth_error(request):
 
     if group == "administrador_ferreteria":
         return redirect("/admin_ferreteria")
-    if group == "cliente":
+    elif group == "cliente":
         return redirect("/")
-    if group == "trabajador":
+    elif group == "trabajador":
         return redirect("/admin_trabajador")
 
     return redirect("/")
+
+# Productos
 
 def productos(request):
     productos_disponibles = Producto.objects.filter(estado="Disponible")
@@ -96,10 +112,12 @@ def productos(request):
 
 def ver_producto(request, pk):
     producto = Producto.objects.get(id=pk)
-    return render(request, "trabajos/trabajo-{}.html".format(pk), {"producto": producto})
+    return render(request, f"trabajos/trabajo-{pk}.html", {"producto": producto})
 
 def trabajos(request):
     return render(request, "trabajos.html")
+
+# ADMIN FERRETERÍA
 
 @allowed_users(allowed_roles=['administrador_ferreteria'])
 def admin_ferreteria(request):
@@ -150,6 +168,8 @@ def admin_ferreteria_eliminar_trabajador(request, pk):
         return redirect("/admin_ferreteria")
 
     return render(request, "admin-ferreteria-eliminar-trabajador.html", {"trabajador": trabajador})
+
+# ADMIN TRABAJADOR
 
 @allowed_users(allowed_roles=['trabajador'])
 def admin_trabajador(request):
