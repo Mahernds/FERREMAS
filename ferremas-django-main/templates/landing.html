@@ -35,8 +35,8 @@
       </div>
       <div class="d-flex ms-auto r-elements">
         <a class="nav-link mx-2" href="session.html"><img src="../../imagenes/logo-usuario.svg" alt="Usuario"></a>
-        <a class="nav-link mx-2" href="carrito.html" data-bs-toggle="popover" data-bs-title="Carrito">
-          <img src="../../imagenes/logo-shopping-cart.svg" alt="Carrito">
+       <a class="nav-link mx-2" href="{% url 'carrito' %}">
+      <img src="{% static 'imagenes/logo-shopping-cart.svg' %}" alt="carrito" />
           <div id="contadorCarrito">1</div>
         </a>
       </div>

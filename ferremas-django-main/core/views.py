@@ -21,6 +21,11 @@ def index(request):
 
 # Vistas generales
 
+
+def carrito(request):
+    return render(request, 'core/carrito.html')
+
+
 def nosotros(request):
     return render(request, 'nosotros.html')
 

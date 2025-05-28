@@ -43,9 +43,8 @@
         <a class="nav-link mx-2" href="{% url 'session' %}">
           <img src="{% static 'imagenes/logo-usuario.svg' %}" alt="usuario">
         </a>
-        <a class="nav-link mx-2" href="{% url 'carrito' %}" data-bs-toggle="popover" data-bs-title="Carrito"
-           data-bs-content="Haz click para ver tu carrito de compras">
-          <img src="{% static 'imagenes/logo-shopping-cart.svg' %}" alt="carrito">
+        <a class="nav-link mx-2" href="{% url 'carrito' %}">
+          <img src="{% static 'imagenes/logo-shopping-cart.svg' %}" alt="carrito" />
           <div id="contadorCarrito">1</div>
         </a>
       </div>
