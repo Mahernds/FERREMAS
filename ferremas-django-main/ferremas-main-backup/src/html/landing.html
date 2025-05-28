@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/landing.css">
   <link rel="stylesheet" href="../css/ferremas-style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
 </head>
 
 <body>
@@ -97,10 +101,69 @@
       <h2>Visítanos</h2>
       <p>Estamos en Álvarez 2336, Viña del Mar</p>
       <p>Horario: Lunes a Viernes de 8:00 a 18:00 - Sábado de 9:00 a 14:00</p>
-      <div class="mapa">
-        <iframe src="https://www.google.com/maps/embed?..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
-    </section>
+      
+      <div id="map" style="height: 400px; width: 100%; border-radius: 8px;"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ubicacionFerremas = [-33.033486823034096, -71.53326456627038];
+
+    const map = L.map('map').setView(ubicacionFerremas, 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const ferremasIcon = L.icon({
+      iconUrl: 'https://i.imgur.com/oixToxj.png',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -40]
+    });
+
+    L.marker(ubicacionFerremas, { icon: ferremasIcon }).addTo(map)
+      .bindPopup('<b>FERREMAS</b><br>Álvarez 2336, Viña del Mar')
+      .openPopup();
+
+    // Mostrar ubicación actual del usuario
+    map.locate({ setView: true, maxZoom: 16 });
+
+    map.on('locationfound', function (e) {
+      L.marker(e.latlng).addTo(map)
+        .bindPopup("Estás aquí").openPopup();
+
+    // Ruta
+      L.Routing.control({
+        waypoints: [
+          L.latLng(e.latitude, e.longitude),
+          L.latLng(ubicacionFerremas)
+        ],
+        routeWhileDragging: false,
+        createMarker: function() { return null; } // Oculta los marcadores por defecto de la ruta
+      }).addTo(map);
+    });
+
+    map.on('locationerror', function () {
+      alert("No pudimos encontrar tu ubicación. Asegúrate de tener la ubicación activada.");
+    });
+  });
+</script>
+
+
+
+
+      <!-- Botón de WhatsApp flotante con ícono -->
+<a href="https://wa.me/56912345678?text=Hola%20FERREMAS%2C%20quiero%20hacer%20una%20consulta" 
+   target="_blank" 
+   aria-label="Chatea por WhatsApp"
+   style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" 
+       alt="WhatsApp" 
+       width="60" 
+       height="60" 
+       style="background-color: #25D366; border-radius: 50%; padding: 10px;">
+</a>
+
 
     <section class="mt-5">
       <h2 class="text-center">¿Tienes dudas?</h2>
