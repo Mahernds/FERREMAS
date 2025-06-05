@@ -12,7 +12,13 @@ urlpatterns = [
     path('producto/<int:pk>/', views.ver_producto, name='ver_producto'),
 
     path('trabajos/', views.trabajos, name='trabajos'),
-    
+
+
+    path('carrito/', views.carrito, name='carrito'),
+    path('session/', views.session, name='session'),
+
+    path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+
 
 
     # Admin Ferretería

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.template import loader
 
@@ -13,19 +14,59 @@ from .models import Trabajador, Producto
 
 
 def index(request):
-    productos_destacados = Producto.objects.filter(estado="Disponible").order_by('-fecha_ingreso')[:3]
-    producto_destacado = productos_destacados[0] if productos_destacados else None
-    otros_productos = productos_destacados[1:] if productos_destacados.count() > 1 else []
+    productos_disponibles = Producto.objects.filter(estado="Disponible").order_by('-fecha_ingreso')
+    
+    # El primer producto destacado
+    ultimo_trabajo = productos_disponibles.first()
+
+    # Los siguientes dos productos para el carrusel
+    sig_trabajos = productos_disponibles[1:3] if productos_disponibles.count() > 1 else []
 
     context = {
-        "producto_destacado": producto_destacado,
-        "otros_productos": otros_productos
+        'ultimo_trabajo': ultimo_trabajo,
+        'sig_trabajos': sig_trabajos
     }
-    return render(request, 'index.html', context)
+    return render(request, 'landing.html', context)
 
 
 def nosotros(request):
     return render(request, 'nosotros.html')
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+def agregar_al_carrito(request, producto_id):
+    try:
+        producto = Producto.objects.get(id=producto_id)
+    except Producto.DoesNotExist:
+        return JsonResponse({'error': 'Producto no encontrado'}, status=404)
+
+    carrito = request.session.get('carrito', {})
+    if str(producto_id) in carrito:
+        carrito[str(producto_id)] += 1
+    else:
+        carrito[str(producto_id)] = 1
+    request.session['carrito'] = carrito
+    return JsonResponse({'contador': sum(carrito.values())})
+
+def carrito(request):
+    carrito = request.session.get('carrito', {})
+    productos = []
+    total = 0
+    for producto_id, cantidad in carrito.items():
+        producto = Producto.objects.get(id=producto_id)
+        productos.append({'producto': producto, 'cantidad': cantidad})
+        total += producto.precio * cantidad  # Ajusta si tu modelo usa otro campo
+
+    return render(request, 'carrito.html', {
+        'productos': productos,
+        'total': total,
+        'contador_carrito': sum(carrito.values())
+    })
+
+def session(request):
+    return render(request, 'session.html')
+
 
 
 @unauthenticated_user
@@ -37,10 +78,11 @@ def login(request):
         if "register" in request.POST:
             cliente_form = ClienteForm(request.POST)
             if cliente_form.is_valid():
+                password = request.POST.get('password')  # <-- Obtiene la contraseña del formulario
                 user = User.objects.create_user(
                     username=cliente_form.cleaned_data['email'],
                     email=cliente_form.cleaned_data['email'],
-                    password='default1234',
+                    password=password,
                     first_name=cliente_form.cleaned_data['nombre'],
                 )
                 group = Group.objects.get(name='cliente')
@@ -68,7 +110,6 @@ def login(request):
 
     return render(request, 'login.html', context)
 
-
 def user_logout(request):
     logout(request)
     return redirect('/')
@@ -91,20 +132,15 @@ def auth_error(request):
 
 
 def productos(request):
-    productos_disponibles = Producto.objects.filter(estado="Disponible")
-
-    if "trabajador" in request.GET:
-        trabajador = Trabajador.objects.filter(nombre=request.GET['trabajador']).first()
-        if trabajador:
-            productos_disponibles = productos_disponibles.filter(trabajador=trabajador)
-        else:
-            productos_disponibles = Producto.objects.none()
-
-    return render(request, 'productos.html', {"productos": productos_disponibles})
-
+    productos = Producto.objects.all()  # O usa un filtro si quieres solo los disponibles
+    carrito = request.session.get('carrito', {})
+    return render(request, 'productos.html', {
+        'productos': productos,
+        'contador_carrito': sum(carrito.values())
+    })
 
 def ver_producto(request, pk):
-    producto = Producto.objects.get(id=pk)
+    producto = get_object_or_404(Producto, pk=pk)
     return render(request, "ver-producto.html", {"producto": producto})
 
 def trabajos(request):
