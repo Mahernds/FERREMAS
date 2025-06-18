@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.inicio, name='inicio'),  # Usamos `inicio` como raíz
+    path('', views.inicio, name='inicio'),  
+    path('', views.inicio, name='index'),
     path('nosotros/', views.nosotros, name='nosotros'),
 
     # Login y logout
