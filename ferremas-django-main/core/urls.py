@@ -2,24 +2,26 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.inicio, name='inicio'),  # Usamos `inicio` como raíz
     path('nosotros/', views.nosotros, name='nosotros'),
-    path('login/', views.login, name='login'),
-    path('logout/', views.user_logout, name='logout'),
+
+    # Login y logout
+    path('login/', views.login_custom, name='login'),  # login unificado
+    path('logout/', views.logout_usuario, name='logout'),
     path('auth_error/', views.auth_error, name='auth_error'),
 
+    # Registro por página independiente
+    path('registro/', views.registrar_usuario, name='registro'),
+
+    # Productos y trabajos
     path('productos/', views.productos, name='productos'),
     path('producto/<int:pk>/', views.ver_producto, name='ver_producto'),
-
     path('trabajos/', views.trabajos, name='trabajos'),
 
-
+    # Carrito y sesión
     path('carrito/', views.carrito, name='carrito'),
     path('session/', views.session, name='session'),
-
     path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
-
-
 
     # Admin Ferretería
     path('admin_ferreteria/', views.admin_ferreteria, name='admin_ferreteria'),

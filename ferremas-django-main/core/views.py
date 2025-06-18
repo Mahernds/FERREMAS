@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.template import loader
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import RegistroForm
 
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import Group, User
@@ -12,8 +14,33 @@ from .forms import ClienteForm, TrabajadorForm, UserForm, ProductoForm
 from .decorators import unauthenticated_user, allowed_users
 from .models import Trabajador, Producto
 
+def registrar_usuario(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('inicio')
+    else:
+        form = RegistroForm()
+    return render(request, 'registro.html', {'form': form})
 
-def index(request):
+def login_usuario(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('inicio')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+
+def logout_usuario(request):
+    logout(request)
+    return redirect('login')
+
+def inicio(request):
     productos_disponibles = Producto.objects.filter(estado="Disponible").order_by('-fecha_ingreso')
     
     # El primer producto destacado
@@ -70,7 +97,7 @@ def session(request):
 
 
 @unauthenticated_user
-def login(request):
+def login_custom(request):
     cliente_form = ClienteForm()
     context = {'cliente_form': cliente_form}
 
