@@ -13,9 +13,9 @@ class Trabajador(models.Model):
     rut = models.CharField(max_length=100, primary_key=True)
     nombre = models.CharField(max_length=100)
     telefono = models.CharField(max_length=100)
-    fecha_nacimiento = models.DateField()
-    direccion = models.CharField(max_length=100)
-    area = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
+    direccion = models.CharField(max_length=100, null=True, blank=True)
+    area = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.nombre}, área: {self.area}"

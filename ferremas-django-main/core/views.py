@@ -1,26 +1,67 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.template import loader
+from django.urls import reverse # Added import for reverse
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegistroForm
-
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import Group, User
-
+from .models import Cliente, Trabajador, Categoria # Added Cliente, Trabajador, Categoria
 from . import models
 from .forms import ClienteForm, TrabajadorForm, UserForm, ProductoForm
 from .decorators import unauthenticated_user, allowed_users
-from .models import Trabajador, Producto
+from .models import Producto # Removed Trabajador, already imported
 
 def registrar_usuario(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
         if form.is_valid():
+            # UserCreationForm handles password hashing and saving the user.
             user = form.save()
-            login(request, user)
-            return redirect('inicio')
+
+            user_type = form.cleaned_data.get('user_type')
+            try:
+                if user_type == 'Cliente':
+                    cliente = Cliente.objects.create(
+                        user=user,
+                        email=form.cleaned_data.get('email'),
+                        nombre=form.cleaned_data.get('nombre'),
+                        rut=form.cleaned_data.get('rut'),
+                        telefono=form.cleaned_data.get('telefono')
+                    )
+                    group, created = Group.objects.get_or_create(name='cliente')
+                    user.groups.add(group)
+                    messages.success(request, 'Cliente registrado con éxito.')
+                elif user_type == 'Trabajador':
+                    area_nombre = form.cleaned_data.get('area')
+                    area_obj = None
+                    if area_nombre:
+                        area_obj, _ = Categoria.objects.get_or_create(nombre=area_nombre)
+
+                    trabajador = Trabajador.objects.create(
+                        user=user,
+                        # email removed - not a field in Trabajador model
+                        nombre=form.cleaned_data.get('nombre'),
+                        rut=form.cleaned_data.get('rut'),
+                        telefono=form.cleaned_data.get('telefono'),
+                        fecha_nacimiento=form.cleaned_data.get('fecha_nacimiento'),
+                        direccion=form.cleaned_data.get('direccion'),
+                        area=area_obj
+                    )
+                    group, created = Group.objects.get_or_create(name='trabajador')
+                    user.groups.add(group)
+                    messages.success(request, 'Trabajador registrado con éxito.')
+
+                auth_login(request, user) # Log in the user
+                return redirect('inicio')
+            except Exception as e:
+                messages.error(request, f'Error al crear el perfil de usuario: {e}')
+                # Optionally delete the user if profile creation fails
+                # user.delete()
+                # Or redirect to a specific error page or back to registration
+                return render(request, 'registro.html', {'form': form})
     else:
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
@@ -98,51 +139,29 @@ def session(request):
 
 @unauthenticated_user
 def login_custom(request):
-    cliente_form = ClienteForm()
-    context = {'cliente_form': cliente_form}
-
     if request.method == 'POST':
-        if "register" in request.POST:
-            cliente_form = ClienteForm(request.POST)
-            if cliente_form.is_valid():
-                password = request.POST.get('password')  # <-- Obtiene la contraseña del formulario
-                user = User.objects.create_user(
-                    username=cliente_form.cleaned_data['email'],
-                    email=cliente_form.cleaned_data['email'],
-                    password=password,
-                    first_name=cliente_form.cleaned_data['nombre'],
-                )
-                group = Group.objects.get(name='cliente')
-                user.groups.add(group)
-                user.save()
-
-                cliente = cliente_form.save(commit=False)
-                cliente.user = user
-                cliente.save()
-
-                messages.success(request, 'Cliente registrado con éxito.')
-                return redirect("/login")
-
-        if "login" in request.POST:
-            username = request.POST['login_email']
-            password = request.POST['login_password']
-
-            user = authenticate(request, username=username, password=password)
-
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user() # Correct way to get user from AuthenticationForm
             if user is not None:
                 auth_login(request, user)
-                return redirect("/auth_error")
-            else:
-                messages.error(request, "Correo o contraseña incorrectos.")
-
-    return render(request, 'login.html', context)
+                return redirect(reverse('auth_error')) # Use reverse for consistency
+            # No else needed here for user is None, as form.is_valid() should handle bad credentials
+            # by adding errors to the form.
+        # If form is invalid, it will fall through to render with the form containing errors
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 def user_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect('login')
 
 
 def auth_error(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     if not request.user.groups.exists():
         return redirect("/")
     

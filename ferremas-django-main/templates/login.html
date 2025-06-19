@@ -26,7 +26,7 @@
     <div class="row justify-content-center align-items-center g-2">
       <div class="col">
         <p>¿No tienes cuenta?
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">¡Click aquí!</button>
+          <a href="{% url 'registro' %}" class="btn btn-primary">¡Click aquí!</a>
         </p>
       </div>
     </div>
@@ -35,18 +35,7 @@
     <div class="row justify-content-center align-items-center g-2">
       <form method="POST" class="form-validation" novalidate>
         {% csrf_token %}
-        <div class="form-group">
-          <label for="correoInicioSesion">Correo</label>
-          <input type="email" class="form-control" id="correoInicioSesion"
-                 name="login_email" placeholder="Ingrese su correo" required />
-          <div class="invalid-feedback">Ingrese un correo válido</div>
-        </div>
-        <div class="form-group">
-          <label for="contrasennaInicioSession">Contraseña</label>
-          <input type="password" class="form-control" id="contrasennaInicioSession"
-                 name="login_password" placeholder="Ingrese su contraseña" required />
-          <div class="invalid-feedback">Debe ingresar su contraseña</div>
-        </div>
+        {{ form.as_p }}
         <br>
         <a href="#">¿Olvidó su contraseña?</a>
         <br>
@@ -65,36 +54,6 @@
     </div>
   </div>
   <br>
-
-  <!-- Modal de Registro -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Crea tu cuenta</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" class="form-validation" novalidate>
-            {% csrf_token %}
-            <!-- Campos del formulario Cliente -->
-            {{ cliente_form.as_p }}
-
-            <!-- Contraseña manual -->
-            <div class="form-group">
-              <label for="password">Contraseña</label>
-              <input type="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
-              <div class="invalid-feedback">Debe ingresar su contraseña</div>
-            </div>
-
-            <button type="submit" class="btn btn-primary d-block mx-auto mt-2" name="register">
-              Registrar usuario
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
   {% include 'footer.html' %}
 

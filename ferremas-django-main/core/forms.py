@@ -6,10 +6,22 @@ from .models import Cliente, Producto, Trabajador, AdministradorFerreteria
 # FORMULARIO DE REGISTRO PARA USUARIOS
 class RegistroForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    USER_TYPE_CHOICES = [
+        ('Cliente', 'Cliente'),
+        ('Trabajador', 'Trabajador'),
+    ]
+    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES)
+    rut = forms.CharField(max_length=10, required=True)
+    nombre = forms.CharField(max_length=100, required=True)
+    telefono = forms.CharField(max_length=15, required=True)
+    fecha_nacimiento = forms.DateField(required=False)
+    direccion = forms.CharField(max_length=255, required=False)
+    area = forms.CharField(max_length=100, required=False)
+
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'user_type', 'rut', 'nombre', 'telefono', 'fecha_nacimiento', 'direccion', 'area']
 
 # FORMULARIO USUARIO PERSONALIZADO (si lo usás aparte)
 class UserForm(forms.ModelForm):
