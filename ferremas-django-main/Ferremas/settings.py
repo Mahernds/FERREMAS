@@ -33,7 +33,7 @@ ROOT_URLCONF = 'Ferremas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'], # Corrected path
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,4 +79,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirección tras logout
-LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "login" # Changed to 'login'
